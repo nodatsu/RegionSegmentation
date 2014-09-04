@@ -124,13 +124,14 @@ namespace RegionSegmentation
                 this.mousePre = new Point(0, 0);
 
                 this.pictureBox1.Invalidate();
+                this.pictureBox2.Invalidate();
             }
         }
 
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             // ボタン識別
-		    if (!(e.Button == MouseButtons.Left))
+            if (!(e.Button == MouseButtons.Left))
             {
                 return;
             }
@@ -143,7 +144,7 @@ namespace RegionSegmentation
             this.isMouseDrag = true;
         }
 
-        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (!this.isMouseDrag)
             {
@@ -160,9 +161,10 @@ namespace RegionSegmentation
 
             // 再描画
             this.pictureBox1.Invalidate();
+            this.pictureBox2.Invalidate();
         }
 
-        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        private void pictureBox_MouseUp(object sender, MouseEventArgs e)
         {
       		// ボタン識別
 		    if (!(e.Button == MouseButtons.Left))
@@ -174,13 +176,13 @@ namespace RegionSegmentation
 		    this.isMouseDrag = false;
         }
 
-        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        private void pictureBox_MouseEnter(object sender, EventArgs e)
         {
             // マウスカーソルが来たらフォーカス(これをしないとホイールイベントが拾えない)
-            pictureBox1.Focus();
+            ((System.Windows.Forms.PictureBox)sender).Focus();
         }
 
-        private void pictureBox1_MouseWheel(object sender, MouseEventArgs e)
+        private void pictureBox_MouseWheel(object sender, MouseEventArgs e)
         {
             // 現在のズーム値を記録
             double zoomPre = this.outputZoom;
@@ -202,6 +204,7 @@ namespace RegionSegmentation
 
             // 再描画
             this.pictureBox1.Invalidate();
+            this.pictureBox2.Invalidate();
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -220,6 +223,7 @@ namespace RegionSegmentation
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
             this.pictureBox1.Invalidate();
+            this.pictureBox2.Invalidate();
         }
     }
 }

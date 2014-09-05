@@ -35,16 +35,16 @@
             this.tableLayoutPanelBase = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelMenuR = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelParamR4 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBoxProcR3 = new System.Windows.Forms.TextBox();
-            this.labelProcR3 = new System.Windows.Forms.Label();
+            this.textBoxParamR3 = new System.Windows.Forms.TextBox();
+            this.labelParamR3 = new System.Windows.Forms.Label();
             this.tableLayoutPanelParamR2 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBoxProcR2 = new System.Windows.Forms.TextBox();
-            this.labelProcR2 = new System.Windows.Forms.Label();
+            this.textBoxParamR2 = new System.Windows.Forms.TextBox();
+            this.labelParamR2 = new System.Windows.Forms.Label();
             this.comboBoxProcR = new System.Windows.Forms.ComboBox();
             this.buttonProcR = new System.Windows.Forms.Button();
             this.tableLayoutPanelParamR1 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBoxProcR1 = new System.Windows.Forms.TextBox();
-            this.labelProcR1 = new System.Windows.Forms.Label();
+            this.textBoxParamR1 = new System.Windows.Forms.TextBox();
+            this.labelParamR1 = new System.Windows.Forms.Label();
             this.pictureBoxR = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanelMenuL = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelParamL3 = new System.Windows.Forms.TableLayoutPanel();
@@ -160,8 +160,8 @@
             this.tableLayoutPanelParamR4.ColumnCount = 2;
             this.tableLayoutPanelParamR4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanelParamR4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanelParamR4.Controls.Add(this.textBoxProcR3, 1, 0);
-            this.tableLayoutPanelParamR4.Controls.Add(this.labelProcR3, 0, 0);
+            this.tableLayoutPanelParamR4.Controls.Add(this.textBoxParamR3, 1, 0);
+            this.tableLayoutPanelParamR4.Controls.Add(this.labelParamR3, 0, 0);
             this.tableLayoutPanelParamR4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelParamR4.Location = new System.Drawing.Point(301, 4);
             this.tableLayoutPanelParamR4.Name = "tableLayoutPanelParamR4";
@@ -170,32 +170,32 @@
             this.tableLayoutPanelParamR4.Size = new System.Drawing.Size(92, 24);
             this.tableLayoutPanelParamR4.TabIndex = 5;
             // 
-            // textBoxProcR3
+            // textBoxParamR3
             // 
-            this.textBoxProcR3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxProcR3.Location = new System.Drawing.Point(67, 3);
-            this.textBoxProcR3.Name = "textBoxProcR3";
-            this.textBoxProcR3.Size = new System.Drawing.Size(22, 19);
-            this.textBoxProcR3.TabIndex = 2;
+            this.textBoxParamR3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxParamR3.Location = new System.Drawing.Point(67, 3);
+            this.textBoxParamR3.Name = "textBoxParamR3";
+            this.textBoxParamR3.Size = new System.Drawing.Size(22, 19);
+            this.textBoxParamR3.TabIndex = 2;
             // 
-            // labelProcR3
+            // labelParamR3
             // 
-            this.labelProcR3.AutoSize = true;
-            this.labelProcR3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProcR3.Location = new System.Drawing.Point(3, 0);
-            this.labelProcR3.Name = "labelProcR3";
-            this.labelProcR3.Size = new System.Drawing.Size(58, 24);
-            this.labelProcR3.TabIndex = 3;
-            this.labelProcR3.Text = "param3";
-            this.labelProcR3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelParamR3.AutoSize = true;
+            this.labelParamR3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelParamR3.Location = new System.Drawing.Point(3, 0);
+            this.labelParamR3.Name = "labelParamR3";
+            this.labelParamR3.Size = new System.Drawing.Size(58, 24);
+            this.labelParamR3.TabIndex = 3;
+            this.labelParamR3.Text = "param3";
+            this.labelParamR3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanelParamR2
             // 
             this.tableLayoutPanelParamR2.ColumnCount = 2;
             this.tableLayoutPanelParamR2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanelParamR2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanelParamR2.Controls.Add(this.textBoxProcR2, 1, 0);
-            this.tableLayoutPanelParamR2.Controls.Add(this.labelProcR2, 0, 0);
+            this.tableLayoutPanelParamR2.Controls.Add(this.textBoxParamR2, 1, 0);
+            this.tableLayoutPanelParamR2.Controls.Add(this.labelParamR2, 0, 0);
             this.tableLayoutPanelParamR2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelParamR2.Location = new System.Drawing.Point(202, 4);
             this.tableLayoutPanelParamR2.Name = "tableLayoutPanelParamR2";
@@ -204,24 +204,24 @@
             this.tableLayoutPanelParamR2.Size = new System.Drawing.Size(92, 24);
             this.tableLayoutPanelParamR2.TabIndex = 4;
             // 
-            // textBoxProcR2
+            // textBoxParamR2
             // 
-            this.textBoxProcR2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxProcR2.Location = new System.Drawing.Point(67, 3);
-            this.textBoxProcR2.Name = "textBoxProcR2";
-            this.textBoxProcR2.Size = new System.Drawing.Size(22, 19);
-            this.textBoxProcR2.TabIndex = 2;
+            this.textBoxParamR2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxParamR2.Location = new System.Drawing.Point(67, 3);
+            this.textBoxParamR2.Name = "textBoxParamR2";
+            this.textBoxParamR2.Size = new System.Drawing.Size(22, 19);
+            this.textBoxParamR2.TabIndex = 2;
             // 
-            // labelProcR2
+            // labelParamR2
             // 
-            this.labelProcR2.AutoSize = true;
-            this.labelProcR2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProcR2.Location = new System.Drawing.Point(3, 0);
-            this.labelProcR2.Name = "labelProcR2";
-            this.labelProcR2.Size = new System.Drawing.Size(58, 24);
-            this.labelProcR2.TabIndex = 3;
-            this.labelProcR2.Text = "param2";
-            this.labelProcR2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelParamR2.AutoSize = true;
+            this.labelParamR2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelParamR2.Location = new System.Drawing.Point(3, 0);
+            this.labelParamR2.Name = "labelParamR2";
+            this.labelParamR2.Size = new System.Drawing.Size(58, 24);
+            this.labelParamR2.TabIndex = 3;
+            this.labelParamR2.Text = "param2";
+            this.labelParamR2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // comboBoxProcR
             // 
@@ -236,6 +236,7 @@
             this.comboBoxProcR.Name = "comboBoxProcR";
             this.comboBoxProcR.Size = new System.Drawing.Size(92, 20);
             this.comboBoxProcR.TabIndex = 0;
+            this.comboBoxProcR.SelectedIndexChanged += new System.EventHandler(this.comboBoxProcR_SelectedIndexChanged);
             // 
             // buttonProcR
             // 
@@ -253,8 +254,8 @@
             this.tableLayoutPanelParamR1.ColumnCount = 2;
             this.tableLayoutPanelParamR1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanelParamR1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanelParamR1.Controls.Add(this.textBoxProcR1, 1, 0);
-            this.tableLayoutPanelParamR1.Controls.Add(this.labelProcR1, 0, 0);
+            this.tableLayoutPanelParamR1.Controls.Add(this.textBoxParamR1, 1, 0);
+            this.tableLayoutPanelParamR1.Controls.Add(this.labelParamR1, 0, 0);
             this.tableLayoutPanelParamR1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelParamR1.Location = new System.Drawing.Point(103, 4);
             this.tableLayoutPanelParamR1.Name = "tableLayoutPanelParamR1";
@@ -263,24 +264,24 @@
             this.tableLayoutPanelParamR1.Size = new System.Drawing.Size(92, 24);
             this.tableLayoutPanelParamR1.TabIndex = 3;
             // 
-            // textBoxProcR1
+            // textBoxParamR1
             // 
-            this.textBoxProcR1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxProcR1.Location = new System.Drawing.Point(67, 3);
-            this.textBoxProcR1.Name = "textBoxProcR1";
-            this.textBoxProcR1.Size = new System.Drawing.Size(22, 19);
-            this.textBoxProcR1.TabIndex = 2;
+            this.textBoxParamR1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxParamR1.Location = new System.Drawing.Point(67, 3);
+            this.textBoxParamR1.Name = "textBoxParamR1";
+            this.textBoxParamR1.Size = new System.Drawing.Size(22, 19);
+            this.textBoxParamR1.TabIndex = 2;
             // 
-            // labelProcR1
+            // labelParamR1
             // 
-            this.labelProcR1.AutoSize = true;
-            this.labelProcR1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProcR1.Location = new System.Drawing.Point(3, 0);
-            this.labelProcR1.Name = "labelProcR1";
-            this.labelProcR1.Size = new System.Drawing.Size(58, 24);
-            this.labelProcR1.TabIndex = 3;
-            this.labelProcR1.Text = "param1";
-            this.labelProcR1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelParamR1.AutoSize = true;
+            this.labelParamR1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelParamR1.Location = new System.Drawing.Point(3, 0);
+            this.labelParamR1.Name = "labelParamR1";
+            this.labelParamR1.Size = new System.Drawing.Size(58, 24);
+            this.labelParamR1.TabIndex = 3;
+            this.labelParamR1.Text = "param1";
+            this.labelParamR1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBoxR
             // 
@@ -402,6 +403,7 @@
             this.comboBoxProcL.Name = "comboBoxProcL";
             this.comboBoxProcL.Size = new System.Drawing.Size(92, 20);
             this.comboBoxProcL.TabIndex = 0;
+            this.comboBoxProcL.SelectedIndexChanged += new System.EventHandler(this.comboBoxProcL_SelectedIndexChanged);
             // 
             // buttonProcL
             // 
@@ -503,16 +505,16 @@
         private System.Windows.Forms.Label labelParamL2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMenuR;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelParamR4;
-        private System.Windows.Forms.TextBox textBoxProcR3;
-        private System.Windows.Forms.Label labelProcR3;
+        private System.Windows.Forms.TextBox textBoxParamR3;
+        private System.Windows.Forms.Label labelParamR3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelParamR2;
-        private System.Windows.Forms.TextBox textBoxProcR2;
-        private System.Windows.Forms.Label labelProcR2;
+        private System.Windows.Forms.TextBox textBoxParamR2;
+        private System.Windows.Forms.Label labelParamR2;
         private System.Windows.Forms.ComboBox comboBoxProcR;
         private System.Windows.Forms.Button buttonProcR;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelParamR1;
-        private System.Windows.Forms.TextBox textBoxProcR1;
-        private System.Windows.Forms.Label labelProcR1;
+        private System.Windows.Forms.TextBox textBoxParamR1;
+        private System.Windows.Forms.Label labelParamR1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelParamL3;
         private System.Windows.Forms.TextBox textBoxParamL3;
         private System.Windows.Forms.Label labelParamL3;

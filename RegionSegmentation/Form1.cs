@@ -54,6 +54,98 @@ namespace RegionSegmentation
             }
         }
 
+        // 左側処理切り替え
+        private void comboBoxProcL_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.comboBoxProcL.Text.Equals("PyrSegmentation"))
+            {
+                // 画像ピラミッドを用いた画像の領域分割
+                // パラメータ: ピラミッドレベル, ピクセルを接続する閾値, クラスタリングの範囲の閾値
+                this.labelParamL1.Text = "ピラミッドレベル";
+                this.textBoxParamL1.Text = "4";
+                this.labelParamL2.Text = "ピクセルを接続する閾値";
+                this.textBoxParamL2.Text = "128.0";
+                this.labelParamL3.Text = "クラスタリングの範囲の閾値";
+                this.textBoxParamL3.Text = "50.0";
+            }
+            else if (this.comboBoxProcL.Text.Equals("PyrMeanShiftFiltering"))
+            {
+                // 平均値シフト法による画像のセグメント化
+                this.labelParamL1.Text = "空間窓の半径";
+                this.textBoxParamL1.Text = "30.0";
+                this.labelParamL2.Text = "色空間窓の半径";
+                this.textBoxParamL2.Text = "30.0";
+                this.labelParamL3.Text = "最大ピラミッドレベル";
+                this.textBoxParamL3.Text = "4";
+            }
+            else if (this.comboBoxProcL.Text.Equals("Watershed"))
+            {
+                // Watershedアルゴリズムによる画像の領域分割
+                this.labelParamL1.Text = "マーカ数(横)";
+                this.textBoxParamL1.Text = "10";
+                this.labelParamL2.Text = "マーカ数(縦)";
+                this.textBoxParamL2.Text = "10";
+                this.labelParamL3.Text = "マーカサイズ";
+                this.textBoxParamL3.Text = "5";
+            }
+            else
+            {
+                // 何もしない
+                this.labelParamL1.Text = "Param1";
+                this.textBoxParamL1.Text = "";
+                this.labelParamL2.Text = "Param2";
+                this.textBoxParamL2.Text = "";
+                this.labelParamL3.Text = "Param3";
+                this.textBoxParamL3.Text = "";
+            }
+        }
+
+        // 右側処理切り替え
+        private void comboBoxProcR_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.comboBoxProcR.Text.Equals("PyrSegmentation"))
+            {
+                // 画像ピラミッドを用いた画像の領域分割
+                // パラメータ: ピラミッドレベル, ピクセルを接続する閾値, クラスタリングの範囲の閾値
+                this.labelParamR1.Text = "ピラミッドレベル";
+                this.textBoxParamR1.Text = "4";
+                this.labelParamR2.Text = "ピクセルを接続する閾値";
+                this.textBoxParamR2.Text = "128.0";
+                this.labelParamR3.Text = "クラスタリングの範囲の閾値";
+                this.textBoxParamR3.Text = "50.0";
+            }
+            else if (this.comboBoxProcR.Text.Equals("PyrMeanShiftFiltering"))
+            {
+                // 平均値シフト法による画像のセグメント化
+                this.labelParamR1.Text = "空間窓の半径";
+                this.textBoxParamR1.Text = "30.0";
+                this.labelParamR2.Text = "色空間窓の半径";
+                this.textBoxParamR2.Text = "30.0";
+                this.labelParamR3.Text = "最大ピラミッドレベル";
+                this.textBoxParamR3.Text = "4";
+            }
+            else if (this.comboBoxProcR.Text.Equals("Watershed"))
+            {
+                // Watershedアルゴリズムによる画像の領域分割
+                this.labelParamR1.Text = "マーカ数(横)";
+                this.textBoxParamR1.Text = "10";
+                this.labelParamR2.Text = "マーカ数(縦)";
+                this.textBoxParamR2.Text = "10";
+                this.labelParamR3.Text = "マーカサイズ";
+                this.textBoxParamR3.Text = "5";
+            }
+            else
+            {
+                // 何もしない
+                this.labelParamR1.Text = "Param1";
+                this.textBoxParamR1.Text = "";
+                this.labelParamR2.Text = "Param2";
+                this.textBoxParamR2.Text = "";
+                this.labelParamR3.Text = "Param3";
+                this.textBoxParamR3.Text = "";
+            }
+        }
+
         // 左側処理
         private void buttonProcL_Click(object sender, EventArgs e)
         {
@@ -64,28 +156,23 @@ namespace RegionSegmentation
             if (this.comboBoxProcL.Text.Equals("PyrSegmentation"))
             {
                 // 画像ピラミッドを用いた画像の領域分割
-                matDst = this.procPyrSegmentation(matL);
+                matDst = this.procPyrSegmentation(matL, int.Parse(this.textBoxParamL1.Text), double.Parse(this.textBoxParamL2.Text), double.Parse(this.textBoxParamL3.Text));
                 this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+                this.matL = matDst;
             }
             else if (this.comboBoxProcL.Text.Equals("PyrMeanShiftFiltering"))
             {
                 // 平均値シフト法による画像のセグメント化
-                matDst = this.procPyrMeanShiftFiltering(matL);
+                matDst = this.procPyrMeanShiftFiltering(matL, double.Parse(this.textBoxParamL1.Text), double.Parse(this.textBoxParamL2.Text), int.Parse(this.textBoxParamL3.Text));
                 this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+                this.matL = matDst;
             }
             else if (this.comboBoxProcL.Text.Equals("Watershed"))
             {
                 // Watershedアルゴリズムによる画像の領域分割 
-                matDst = this.procWatershed(matL);
+                matDst = this.procWatershed(matL, int.Parse(this.textBoxParamL1.Text), int.Parse(this.textBoxParamL2.Text), int.Parse(this.textBoxParamL3.Text));
                 this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
             }
-            else
-            {
-                // 何もしない
-                matDst = matL;
-            }
-
-            this.matL = matDst;
 
             this.pictureBoxL.Invalidate();
         }
@@ -100,40 +187,31 @@ namespace RegionSegmentation
             if (this.comboBoxProcR.Text.Equals("PyrSegmentation"))
             {
                 // 画像ピラミッドを用いた画像の領域分割
-                matDst = this.procPyrSegmentation(matR);
+                matDst = this.procPyrSegmentation(matR, int.Parse(this.textBoxParamR1.Text), int.Parse(this.textBoxParamR2.Text), int.Parse(this.textBoxParamR3.Text));
                 this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+                this.matR = matDst;
             }
             else if (this.comboBoxProcR.Text.Equals("PyrMeanShiftFiltering"))
             {
                 // 平均値シフト法による画像のセグメント化
-                matDst = this.procPyrMeanShiftFiltering(matR);
+                matDst = this.procPyrMeanShiftFiltering(matR, double.Parse(this.textBoxParamR1.Text), double.Parse(this.textBoxParamR2.Text), int.Parse(this.textBoxParamR3.Text));
                 this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+                this.matR = matDst;
             }
             else if (this.comboBoxProcR.Text.Equals("Watershed"))
             {
                 // Watershedアルゴリズムによる画像の領域分割 
-                matDst = this.procWatershed(matR);
+                matDst = this.procWatershed(matR, int.Parse(this.textBoxParamR1.Text), int.Parse(this.textBoxParamR2.Text), int.Parse(this.textBoxParamR3.Text));
                 this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
             }
-            else
-            {
-                // 何もしない
-                matDst = matR;
-            }
-
-            this.matR = matDst;
 
             this.pictureBoxR.Invalidate();
         }
 
         // 画像ピラミッドを用いた画像の領域分割
-        private OpenCvSharp.CPlusPlus.Mat procPyrSegmentation(OpenCvSharp.CPlusPlus.Mat matSrc)
+        // パラメータ: ピラミッドレベル, ピクセルを接続する閾値, クラスタリングの範囲の閾値
+        private OpenCvSharp.CPlusPlus.Mat procPyrSegmentation(OpenCvSharp.CPlusPlus.Mat matSrc, int level, double threshold1, double threshold2)
         {
-            // パラメータ
-            int level = 4;              // ピラミッドレベル
-            double threshold1 = 128;    // ピクセルを接続する閾値
-            double threshold2 = 50;     // クラスタリングの範囲の閾値
-
             // Matの準備
             OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
 
@@ -159,12 +237,10 @@ namespace RegionSegmentation
         }
 
         // 平均値シフト法による画像のセグメント化
-        private OpenCvSharp.CPlusPlus.Mat procPyrMeanShiftFiltering(OpenCvSharp.CPlusPlus.Mat matSrc)
+        // パラメータ: 空間窓の半径, 色空間窓の半径, セグメンテーションに用いるピラミッドの最大レベル
+        private OpenCvSharp.CPlusPlus.Mat procPyrMeanShiftFiltering(OpenCvSharp.CPlusPlus.Mat matSrc, double sp, double sr, int level)
         {
-            // パラメータ
-            double sp = 30; // 空間窓の半径
-            double sr = 30; // 色空間窓の半径
-            int level = 4;  // セグメンテーションに用いるピラミッドの最大レベル
+            // 終了パラメータ
             OpenCvSharp.CPlusPlus.TermCriteria term = new OpenCvSharp.CPlusPlus.TermCriteria(OpenCvSharp.CriteriaType.Iteration, 5, 1);
             //OpenCvSharp.CPlusPlus.TermCriteria term = new OpenCvSharp.CPlusPlus.TermCriteria(OpenCvSharp.CriteriaType.Epsilon, 5, 1);
 
@@ -177,13 +253,9 @@ namespace RegionSegmentation
         }
 
         // Watershedアルゴリズムによる画像の領域分割 
-        private OpenCvSharp.CPlusPlus.Mat procWatershed(OpenCvSharp.CPlusPlus.Mat matSrc)
-        {
-            // パラメータ
-            int wdiv = 10;   // 分割数(横)
-            int hdiv = 10;   // 分割数(縦)
-            int msize = 5;   // マーカサイズ
-            
+        // パラメータ: 分割数(横), 分割数(縦), マーカサイズ
+        private OpenCvSharp.CPlusPlus.Mat procWatershed(OpenCvSharp.CPlusPlus.Mat matSrc, int wdiv, int hdiv, int msize)
+        {            
             // Matの準備
             OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
 

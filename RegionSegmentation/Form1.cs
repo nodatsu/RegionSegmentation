@@ -12,6 +12,10 @@ namespace RegionSegmentation
 {
     public partial class Form1 : Form
     {
+        // 画像データ
+        OpenCvSharp.CPlusPlus.Mat matL;
+        OpenCvSharp.CPlusPlus.Mat matR;
+        
         // 表示用
         Bitmap outputImageL;
         Bitmap outputImageR;
@@ -20,8 +24,6 @@ namespace RegionSegmentation
         bool isMouseDrag;
         Point mousePre;
 
-        System.Diagnostics.Stopwatch sw;
-
         public Form1()
         {
             InitializeComponent();
@@ -29,37 +31,103 @@ namespace RegionSegmentation
 
         private void 読み込みToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // データ読み込み
             OpenFileDialog dialog = new OpenFileDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                // Matの準備
-                OpenCvSharp.CPlusPlus.Mat matSrc = new OpenCvSharp.CPlusPlus.Mat(dialog.FileName);
-                OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
+                this.matL = new OpenCvSharp.CPlusPlus.Mat(dialog.FileName);
+                this.matR = this.matL.Clone();
 
-                // 画像ピラミッドを用いた画像の領域分割 
-                this.outputImageL = this.procPyrSegmentation(matSrc);
-                this.outputImageR = this.procPyrSegmentation(matSrc);
-
-                // 平均値シフト法による画像のセグメント化
-                //this.outputImageL = this.procPyrMeanShiftFiltering(matSrc);
-                //this.outputImageR = this.procPyrMeanShiftFiltering(matSrc);
-
-                // Watershedアルゴリズムによる画像の領域分割 
-                //this.outputImageL = this.procWatershed(matSrc);
-                //this.outputImageR = this.procWatershed(matSrc);
+                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matL);
+                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matR);
 
                 this.outputZoom = 1.0;
                 this.outputShift = new Point(0, 0);
                 this.isMouseDrag = false;
                 this.mousePre = new Point(0, 0);
 
+                this.comboBoxProcL.SelectedIndex = 0;
+                this.comboBoxProcR.SelectedIndex = 0;
+
                 this.pictureBoxL.Invalidate();
                 this.pictureBoxR.Invalidate();
             }
         }
 
+        // 左側処理
+        private void buttonProcL_Click(object sender, EventArgs e)
+        {
+            if (matL == null) return;
+
+            OpenCvSharp.CPlusPlus.Mat matDst;
+
+            if (this.comboBoxProcL.Text.Equals("PyrSegmentation"))
+            {
+                // 画像ピラミッドを用いた画像の領域分割
+                matDst = this.procPyrSegmentation(matL);
+                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            }
+            else if (this.comboBoxProcL.Text.Equals("PyrMeanShiftFiltering"))
+            {
+                // 平均値シフト法による画像のセグメント化
+                matDst = this.procPyrMeanShiftFiltering(matL);
+                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            }
+            else if (this.comboBoxProcL.Text.Equals("Watershed"))
+            {
+                // Watershedアルゴリズムによる画像の領域分割 
+                matDst = this.procWatershed(matL);
+                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            }
+            else
+            {
+                // 何もしない
+                matDst = matL;
+            }
+
+            this.matL = matDst;
+
+            this.pictureBoxL.Invalidate();
+        }
+
+        // 右側処理
+        private void buttonProcR_Click(object sender, EventArgs e)
+        {
+            if (matR == null) return;
+
+            OpenCvSharp.CPlusPlus.Mat matDst;
+
+            if (this.comboBoxProcR.Text.Equals("PyrSegmentation"))
+            {
+                // 画像ピラミッドを用いた画像の領域分割
+                matDst = this.procPyrSegmentation(matR);
+                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            }
+            else if (this.comboBoxProcR.Text.Equals("PyrMeanShiftFiltering"))
+            {
+                // 平均値シフト法による画像のセグメント化
+                matDst = this.procPyrMeanShiftFiltering(matR);
+                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            }
+            else if (this.comboBoxProcR.Text.Equals("Watershed"))
+            {
+                // Watershedアルゴリズムによる画像の領域分割 
+                matDst = this.procWatershed(matR);
+                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            }
+            else
+            {
+                // 何もしない
+                matDst = matR;
+            }
+
+            this.matR = matDst;
+
+            this.pictureBoxR.Invalidate();
+        }
+
         // 画像ピラミッドを用いた画像の領域分割
-        private Bitmap procPyrSegmentation(OpenCvSharp.CPlusPlus.Mat matSrc)
+        private OpenCvSharp.CPlusPlus.Mat procPyrSegmentation(OpenCvSharp.CPlusPlus.Mat matSrc)
         {
             // パラメータ
             int level = 4;              // ピラミッドレベル
@@ -87,11 +155,11 @@ namespace RegionSegmentation
             // IplImage -> Matに戻す
             matDst = new OpenCvSharp.CPlusPlus.Mat(iplDst);
 
-            return OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            return matDst;
         }
 
         // 平均値シフト法による画像のセグメント化
-        private Bitmap procPyrMeanShiftFiltering(OpenCvSharp.CPlusPlus.Mat matSrc)
+        private OpenCvSharp.CPlusPlus.Mat procPyrMeanShiftFiltering(OpenCvSharp.CPlusPlus.Mat matSrc)
         {
             // パラメータ
             double sp = 30; // 空間窓の半径
@@ -105,11 +173,11 @@ namespace RegionSegmentation
 
             OpenCvSharp.CPlusPlus.Cv2.PyrMeanShiftFiltering(matSrc, matDst, sp, sr, level, term);
 
-            return OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            return matDst;
         }
 
         // Watershedアルゴリズムによる画像の領域分割 
-        private Bitmap procWatershed(OpenCvSharp.CPlusPlus.Mat matSrc)
+        private OpenCvSharp.CPlusPlus.Mat procWatershed(OpenCvSharp.CPlusPlus.Mat matSrc)
         {
             // パラメータ
             int wdiv = 10;   // 分割数(横)
@@ -166,7 +234,7 @@ namespace RegionSegmentation
             // IplImage -> Matに戻す
             matDst = new OpenCvSharp.CPlusPlus.Mat(iplDst);
 
-            return OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            return matDst;
         }
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)

@@ -1,15 +1,14 @@
 ﻿RegionSegmentation
 
 TODO
-	処理時間の表示
-	パラメータの埋め込み
-	結果画像の保存
-
 	パラメータの意味を調べる
 
 RegionSegmentation_03	Sep.04, 2014
 
 	複数画面の表示
+	処理の関数化
+
+	versions.txtの組み込み
 
 ★今ここ
 	処理の切り替え

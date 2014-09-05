@@ -61,6 +61,7 @@ namespace RegionSegmentation
         // 画像ピラミッドを用いた画像の領域分割
         private Bitmap procPyrSegmentation(OpenCvSharp.CPlusPlus.Mat matSrc)
         {
+            // パラメータ
             int level = 4;              // ピラミッドレベル
             double threshold1 = 128;    // ピクセルを接続する閾値
             double threshold2 = 50;     // クラスタリングの範囲の閾値
@@ -92,6 +93,7 @@ namespace RegionSegmentation
         // 平均値シフト法による画像のセグメント化
         private Bitmap procPyrMeanShiftFiltering(OpenCvSharp.CPlusPlus.Mat matSrc)
         {
+            // パラメータ
             double sp = 30; // 空間窓の半径
             double sr = 30; // 色空間窓の半径
             int level = 4;  // セグメンテーションに用いるピラミッドの最大レベル
@@ -109,6 +111,11 @@ namespace RegionSegmentation
         // Watershedアルゴリズムによる画像の領域分割 
         private Bitmap procWatershed(OpenCvSharp.CPlusPlus.Mat matSrc)
         {
+            // パラメータ
+            int wdiv = 10;   // 分割数(横)
+            int hdiv = 10;   // 分割数(縦)
+            int msize = 5;   // マーカサイズ
+            
             // Matの準備
             OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
 
@@ -121,15 +128,13 @@ namespace RegionSegmentation
             iplMarker.Zero();
 
             // マーカ設置(等分割)
-            int wdiv = 10;   // 分割数(横)
-            int hdiv = 10;   // 分割数(縦)
             OpenCvSharp.CvPoint[,] mpt = new OpenCvSharp.CvPoint[wdiv, hdiv];
             for (int i = 0; i < wdiv; i++)
             {
                 for (int j = 0; j < hdiv; j++)
                 {
                     mpt[i, j] = new OpenCvSharp.CvPoint((int)(iplSrc.Width / wdiv * (i + 0.5)), (int)(iplSrc.Height / hdiv * (j + 0.5)));
-                    iplMarker.Circle(mpt[i, j], 5, OpenCvSharp.CvScalar.ScalarAll(i * wdiv + j), OpenCvSharp.Cv.FILLED, OpenCvSharp.LineType.Link8, 0);
+                    iplMarker.Circle(mpt[i, j], msize, OpenCvSharp.CvScalar.ScalarAll(i * wdiv + j), OpenCvSharp.Cv.FILLED, OpenCvSharp.LineType.Link8, 0);
                 }
             }
 
@@ -141,7 +146,7 @@ namespace RegionSegmentation
             {
                 for (int j = 0; j < hdiv; j++)
                 {
-                    iplDst.Circle(mpt[i, j], 20, OpenCvSharp.CvColor.White, 3, OpenCvSharp.LineType.Link8, 0);
+                    iplDst.Circle(mpt[i, j], msize, OpenCvSharp.CvColor.White, 3, OpenCvSharp.LineType.Link8, 0);
                 }
             }
 

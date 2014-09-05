@@ -32,12 +32,44 @@
             this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.読み込みToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBoxL = new System.Windows.Forms.PictureBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelBase = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBoxR = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanelMenuL = new System.Windows.Forms.TableLayoutPanel();
+            this.comboBoxProcL = new System.Windows.Forms.ComboBox();
+            this.buttonProcL = new System.Windows.Forms.Button();
+            this.textBoxParamL1 = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanelParamL1 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelParamL1 = new System.Windows.Forms.Label();
+            this.textBoxParamL2 = new System.Windows.Forms.TextBox();
+            this.labelParamL2 = new System.Windows.Forms.Label();
+            this.tableLayoutPanelParamL2 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxParamL3 = new System.Windows.Forms.TextBox();
+            this.labelParamL3 = new System.Windows.Forms.Label();
+            this.tableLayoutPanelParamL3 = new System.Windows.Forms.TableLayoutPanel();
+            this.comboBoxProcR = new System.Windows.Forms.ComboBox();
+            this.tableLayoutPanelParamR1 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxProcR1 = new System.Windows.Forms.TextBox();
+            this.labelProcR1 = new System.Windows.Forms.Label();
+            this.tableLayoutPanelParamR2 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxProcR2 = new System.Windows.Forms.TextBox();
+            this.labelProcR2 = new System.Windows.Forms.Label();
+            this.tableLayoutPanelMenuR = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelParamR4 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxProcR3 = new System.Windows.Forms.TextBox();
+            this.labelProcR3 = new System.Windows.Forms.Label();
+            this.buttonProcR = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxL)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanelBase.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxR)).BeginInit();
+            this.tableLayoutPanelMenuL.SuspendLayout();
+            this.tableLayoutPanelParamL1.SuspendLayout();
+            this.tableLayoutPanelParamL2.SuspendLayout();
+            this.tableLayoutPanelParamL3.SuspendLayout();
+            this.tableLayoutPanelParamR1.SuspendLayout();
+            this.tableLayoutPanelParamR2.SuspendLayout();
+            this.tableLayoutPanelMenuR.SuspendLayout();
+            this.tableLayoutPanelParamR4.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -46,7 +78,7 @@
             this.ファイルToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(648, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1007, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -67,10 +99,11 @@
             // 
             // pictureBoxL
             // 
+            this.pictureBoxL.Cursor = System.Windows.Forms.Cursors.NoMove2D;
             this.pictureBoxL.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxL.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxL.Location = new System.Drawing.Point(4, 43);
             this.pictureBoxL.Name = "pictureBoxL";
-            this.pictureBoxL.Size = new System.Drawing.Size(318, 231);
+            this.pictureBoxL.Size = new System.Drawing.Size(496, 363);
             this.pictureBoxL.TabIndex = 1;
             this.pictureBoxL.TabStop = false;
             this.pictureBoxL.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxL_Paint);
@@ -80,27 +113,32 @@
             this.pictureBoxL.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseUp);
             this.pictureBoxL.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseWheel);
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanelBase
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.pictureBoxL, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBoxR, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(648, 237);
-            this.tableLayoutPanel1.TabIndex = 2;
+            this.tableLayoutPanelBase.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanelBase.ColumnCount = 2;
+            this.tableLayoutPanelBase.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBase.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBase.Controls.Add(this.tableLayoutPanelMenuR, 1, 0);
+            this.tableLayoutPanelBase.Controls.Add(this.pictureBoxL, 0, 1);
+            this.tableLayoutPanelBase.Controls.Add(this.pictureBoxR, 1, 1);
+            this.tableLayoutPanelBase.Controls.Add(this.tableLayoutPanelMenuL, 0, 0);
+            this.tableLayoutPanelBase.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelBase.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutPanelBase.Name = "tableLayoutPanelBase";
+            this.tableLayoutPanelBase.RowCount = 2;
+            this.tableLayoutPanelBase.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanelBase.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelBase.Size = new System.Drawing.Size(1007, 410);
+            this.tableLayoutPanelBase.TabIndex = 2;
             // 
             // pictureBoxR
             // 
+            this.pictureBoxR.Cursor = System.Windows.Forms.Cursors.NoMove2D;
             this.pictureBoxR.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxR.Location = new System.Drawing.Point(327, 3);
+            this.pictureBoxR.Location = new System.Drawing.Point(507, 43);
             this.pictureBoxR.Name = "pictureBoxR";
-            this.pictureBoxR.Size = new System.Drawing.Size(318, 231);
+            this.pictureBoxR.Size = new System.Drawing.Size(496, 363);
             this.pictureBoxR.TabIndex = 2;
             this.pictureBoxR.TabStop = false;
             this.pictureBoxR.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxR_Paint);
@@ -110,13 +148,311 @@
             this.pictureBoxR.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseUp);
             this.pictureBoxR.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseWheel);
             // 
+            // tableLayoutPanelMenuL
+            // 
+            this.tableLayoutPanelMenuL.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tableLayoutPanelMenuL.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanelMenuL.ColumnCount = 5;
+            this.tableLayoutPanelMenuL.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelMenuL.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelMenuL.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelMenuL.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelMenuL.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelMenuL.Controls.Add(this.tableLayoutPanelParamL3, 3, 0);
+            this.tableLayoutPanelMenuL.Controls.Add(this.tableLayoutPanelParamL2, 2, 0);
+            this.tableLayoutPanelMenuL.Controls.Add(this.comboBoxProcL, 0, 0);
+            this.tableLayoutPanelMenuL.Controls.Add(this.buttonProcL, 4, 0);
+            this.tableLayoutPanelMenuL.Controls.Add(this.tableLayoutPanelParamL1, 1, 0);
+            this.tableLayoutPanelMenuL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelMenuL.Location = new System.Drawing.Point(4, 4);
+            this.tableLayoutPanelMenuL.Name = "tableLayoutPanelMenuL";
+            this.tableLayoutPanelMenuL.RowCount = 1;
+            this.tableLayoutPanelMenuL.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelMenuL.Size = new System.Drawing.Size(496, 32);
+            this.tableLayoutPanelMenuL.TabIndex = 3;
+            // 
+            // comboBoxProcL
+            // 
+            this.comboBoxProcL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxProcL.FormattingEnabled = true;
+            this.comboBoxProcL.Items.AddRange(new object[] {
+            "none",
+            "PyrSegmentation",
+            "PyrMeanShiftFiltering",
+            "Watershed"});
+            this.comboBoxProcL.Location = new System.Drawing.Point(4, 4);
+            this.comboBoxProcL.Name = "comboBoxProcL";
+            this.comboBoxProcL.Size = new System.Drawing.Size(92, 20);
+            this.comboBoxProcL.TabIndex = 0;
+            // 
+            // buttonProcL
+            // 
+            this.buttonProcL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonProcL.Location = new System.Drawing.Point(400, 4);
+            this.buttonProcL.Name = "buttonProcL";
+            this.buttonProcL.Size = new System.Drawing.Size(92, 24);
+            this.buttonProcL.TabIndex = 1;
+            this.buttonProcL.Text = "Process!";
+            this.buttonProcL.UseVisualStyleBackColor = true;
+            // 
+            // textBoxParamL1
+            // 
+            this.textBoxParamL1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxParamL1.Location = new System.Drawing.Point(67, 3);
+            this.textBoxParamL1.Name = "textBoxParamL1";
+            this.textBoxParamL1.Size = new System.Drawing.Size(22, 19);
+            this.textBoxParamL1.TabIndex = 2;
+            // 
+            // tableLayoutPanelParamL1
+            // 
+            this.tableLayoutPanelParamL1.ColumnCount = 2;
+            this.tableLayoutPanelParamL1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanelParamL1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanelParamL1.Controls.Add(this.textBoxParamL1, 1, 0);
+            this.tableLayoutPanelParamL1.Controls.Add(this.labelParamL1, 0, 0);
+            this.tableLayoutPanelParamL1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelParamL1.Location = new System.Drawing.Point(103, 4);
+            this.tableLayoutPanelParamL1.Name = "tableLayoutPanelParamL1";
+            this.tableLayoutPanelParamL1.RowCount = 1;
+            this.tableLayoutPanelParamL1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelParamL1.Size = new System.Drawing.Size(92, 24);
+            this.tableLayoutPanelParamL1.TabIndex = 3;
+            // 
+            // labelParamL1
+            // 
+            this.labelParamL1.AutoSize = true;
+            this.labelParamL1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelParamL1.Location = new System.Drawing.Point(3, 0);
+            this.labelParamL1.Name = "labelParamL1";
+            this.labelParamL1.Size = new System.Drawing.Size(58, 24);
+            this.labelParamL1.TabIndex = 3;
+            this.labelParamL1.Text = "param1";
+            this.labelParamL1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBoxParamL2
+            // 
+            this.textBoxParamL2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxParamL2.Location = new System.Drawing.Point(67, 3);
+            this.textBoxParamL2.Name = "textBoxParamL2";
+            this.textBoxParamL2.Size = new System.Drawing.Size(22, 19);
+            this.textBoxParamL2.TabIndex = 2;
+            // 
+            // labelParamL2
+            // 
+            this.labelParamL2.AutoSize = true;
+            this.labelParamL2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelParamL2.Location = new System.Drawing.Point(3, 0);
+            this.labelParamL2.Name = "labelParamL2";
+            this.labelParamL2.Size = new System.Drawing.Size(58, 24);
+            this.labelParamL2.TabIndex = 3;
+            this.labelParamL2.Text = "param2";
+            this.labelParamL2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanelParamL2
+            // 
+            this.tableLayoutPanelParamL2.ColumnCount = 2;
+            this.tableLayoutPanelParamL2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanelParamL2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanelParamL2.Controls.Add(this.textBoxParamL2, 1, 0);
+            this.tableLayoutPanelParamL2.Controls.Add(this.labelParamL2, 0, 0);
+            this.tableLayoutPanelParamL2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelParamL2.Location = new System.Drawing.Point(202, 4);
+            this.tableLayoutPanelParamL2.Name = "tableLayoutPanelParamL2";
+            this.tableLayoutPanelParamL2.RowCount = 1;
+            this.tableLayoutPanelParamL2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelParamL2.Size = new System.Drawing.Size(92, 24);
+            this.tableLayoutPanelParamL2.TabIndex = 4;
+            // 
+            // textBoxParamL3
+            // 
+            this.textBoxParamL3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxParamL3.Location = new System.Drawing.Point(67, 3);
+            this.textBoxParamL3.Name = "textBoxParamL3";
+            this.textBoxParamL3.Size = new System.Drawing.Size(22, 19);
+            this.textBoxParamL3.TabIndex = 2;
+            // 
+            // labelParamL3
+            // 
+            this.labelParamL3.AutoSize = true;
+            this.labelParamL3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelParamL3.Location = new System.Drawing.Point(3, 0);
+            this.labelParamL3.Name = "labelParamL3";
+            this.labelParamL3.Size = new System.Drawing.Size(58, 24);
+            this.labelParamL3.TabIndex = 3;
+            this.labelParamL3.Text = "param3";
+            this.labelParamL3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanelParamL3
+            // 
+            this.tableLayoutPanelParamL3.ColumnCount = 2;
+            this.tableLayoutPanelParamL3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanelParamL3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanelParamL3.Controls.Add(this.textBoxParamL3, 1, 0);
+            this.tableLayoutPanelParamL3.Controls.Add(this.labelParamL3, 0, 0);
+            this.tableLayoutPanelParamL3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelParamL3.Location = new System.Drawing.Point(301, 4);
+            this.tableLayoutPanelParamL3.Name = "tableLayoutPanelParamL3";
+            this.tableLayoutPanelParamL3.RowCount = 1;
+            this.tableLayoutPanelParamL3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelParamL3.Size = new System.Drawing.Size(92, 24);
+            this.tableLayoutPanelParamL3.TabIndex = 5;
+            // 
+            // comboBoxProcR
+            // 
+            this.comboBoxProcR.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxProcR.FormattingEnabled = true;
+            this.comboBoxProcR.Items.AddRange(new object[] {
+            "none",
+            "PyrSegmentation",
+            "PyrMeanShiftFiltering",
+            "Watershed"});
+            this.comboBoxProcR.Location = new System.Drawing.Point(4, 4);
+            this.comboBoxProcR.Name = "comboBoxProcR";
+            this.comboBoxProcR.Size = new System.Drawing.Size(92, 20);
+            this.comboBoxProcR.TabIndex = 0;
+            // 
+            // tableLayoutPanelParamR1
+            // 
+            this.tableLayoutPanelParamR1.ColumnCount = 2;
+            this.tableLayoutPanelParamR1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanelParamR1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanelParamR1.Controls.Add(this.textBoxProcR1, 1, 0);
+            this.tableLayoutPanelParamR1.Controls.Add(this.labelProcR1, 0, 0);
+            this.tableLayoutPanelParamR1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelParamR1.Location = new System.Drawing.Point(103, 4);
+            this.tableLayoutPanelParamR1.Name = "tableLayoutPanelParamR1";
+            this.tableLayoutPanelParamR1.RowCount = 1;
+            this.tableLayoutPanelParamR1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelParamR1.Size = new System.Drawing.Size(92, 24);
+            this.tableLayoutPanelParamR1.TabIndex = 3;
+            // 
+            // textBoxProcR1
+            // 
+            this.textBoxProcR1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxProcR1.Location = new System.Drawing.Point(67, 3);
+            this.textBoxProcR1.Name = "textBoxProcR1";
+            this.textBoxProcR1.Size = new System.Drawing.Size(22, 19);
+            this.textBoxProcR1.TabIndex = 2;
+            // 
+            // labelProcR1
+            // 
+            this.labelProcR1.AutoSize = true;
+            this.labelProcR1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelProcR1.Location = new System.Drawing.Point(3, 0);
+            this.labelProcR1.Name = "labelProcR1";
+            this.labelProcR1.Size = new System.Drawing.Size(58, 24);
+            this.labelProcR1.TabIndex = 3;
+            this.labelProcR1.Text = "param1";
+            this.labelProcR1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanelParamR2
+            // 
+            this.tableLayoutPanelParamR2.ColumnCount = 2;
+            this.tableLayoutPanelParamR2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanelParamR2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanelParamR2.Controls.Add(this.textBoxProcR2, 1, 0);
+            this.tableLayoutPanelParamR2.Controls.Add(this.labelProcR2, 0, 0);
+            this.tableLayoutPanelParamR2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelParamR2.Location = new System.Drawing.Point(202, 4);
+            this.tableLayoutPanelParamR2.Name = "tableLayoutPanelParamR2";
+            this.tableLayoutPanelParamR2.RowCount = 1;
+            this.tableLayoutPanelParamR2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelParamR2.Size = new System.Drawing.Size(92, 24);
+            this.tableLayoutPanelParamR2.TabIndex = 4;
+            // 
+            // textBoxProcR2
+            // 
+            this.textBoxProcR2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxProcR2.Location = new System.Drawing.Point(67, 3);
+            this.textBoxProcR2.Name = "textBoxProcR2";
+            this.textBoxProcR2.Size = new System.Drawing.Size(22, 19);
+            this.textBoxProcR2.TabIndex = 2;
+            // 
+            // labelProcR2
+            // 
+            this.labelProcR2.AutoSize = true;
+            this.labelProcR2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelProcR2.Location = new System.Drawing.Point(3, 0);
+            this.labelProcR2.Name = "labelProcR2";
+            this.labelProcR2.Size = new System.Drawing.Size(58, 24);
+            this.labelProcR2.TabIndex = 3;
+            this.labelProcR2.Text = "param2";
+            this.labelProcR2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanelMenuR
+            // 
+            this.tableLayoutPanelMenuR.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tableLayoutPanelMenuR.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanelMenuR.ColumnCount = 5;
+            this.tableLayoutPanelMenuR.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelMenuR.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelMenuR.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelMenuR.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelMenuR.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelMenuR.Controls.Add(this.tableLayoutPanelParamR4, 3, 0);
+            this.tableLayoutPanelMenuR.Controls.Add(this.tableLayoutPanelParamR2, 2, 0);
+            this.tableLayoutPanelMenuR.Controls.Add(this.comboBoxProcR, 0, 0);
+            this.tableLayoutPanelMenuR.Controls.Add(this.buttonProcR, 4, 0);
+            this.tableLayoutPanelMenuR.Controls.Add(this.tableLayoutPanelParamR1, 1, 0);
+            this.tableLayoutPanelMenuR.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelMenuR.Location = new System.Drawing.Point(507, 4);
+            this.tableLayoutPanelMenuR.Name = "tableLayoutPanelMenuR";
+            this.tableLayoutPanelMenuR.RowCount = 1;
+            this.tableLayoutPanelMenuR.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelMenuR.Size = new System.Drawing.Size(496, 32);
+            this.tableLayoutPanelMenuR.TabIndex = 4;
+            // 
+            // tableLayoutPanelParamR4
+            // 
+            this.tableLayoutPanelParamR4.ColumnCount = 2;
+            this.tableLayoutPanelParamR4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanelParamR4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanelParamR4.Controls.Add(this.textBoxProcR3, 1, 0);
+            this.tableLayoutPanelParamR4.Controls.Add(this.labelProcR3, 0, 0);
+            this.tableLayoutPanelParamR4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelParamR4.Location = new System.Drawing.Point(301, 4);
+            this.tableLayoutPanelParamR4.Name = "tableLayoutPanelParamR4";
+            this.tableLayoutPanelParamR4.RowCount = 1;
+            this.tableLayoutPanelParamR4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelParamR4.Size = new System.Drawing.Size(92, 24);
+            this.tableLayoutPanelParamR4.TabIndex = 5;
+            // 
+            // textBoxProcR3
+            // 
+            this.textBoxProcR3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxProcR3.Location = new System.Drawing.Point(67, 3);
+            this.textBoxProcR3.Name = "textBoxProcR3";
+            this.textBoxProcR3.Size = new System.Drawing.Size(22, 19);
+            this.textBoxProcR3.TabIndex = 2;
+            // 
+            // labelProcR3
+            // 
+            this.labelProcR3.AutoSize = true;
+            this.labelProcR3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelProcR3.Location = new System.Drawing.Point(3, 0);
+            this.labelProcR3.Name = "labelProcR3";
+            this.labelProcR3.Size = new System.Drawing.Size(58, 24);
+            this.labelProcR3.TabIndex = 3;
+            this.labelProcR3.Text = "param3";
+            this.labelProcR3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // buttonProcR
+            // 
+            this.buttonProcR.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonProcR.Location = new System.Drawing.Point(400, 4);
+            this.buttonProcR.Name = "buttonProcR";
+            this.buttonProcR.Size = new System.Drawing.Size(92, 24);
+            this.buttonProcR.TabIndex = 1;
+            this.buttonProcR.Text = "Process!";
+            this.buttonProcR.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(648, 261);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(1007, 434);
+            this.Controls.Add(this.tableLayoutPanelBase);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -125,8 +461,22 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxL)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanelBase.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxR)).EndInit();
+            this.tableLayoutPanelMenuL.ResumeLayout(false);
+            this.tableLayoutPanelParamL1.ResumeLayout(false);
+            this.tableLayoutPanelParamL1.PerformLayout();
+            this.tableLayoutPanelParamL2.ResumeLayout(false);
+            this.tableLayoutPanelParamL2.PerformLayout();
+            this.tableLayoutPanelParamL3.ResumeLayout(false);
+            this.tableLayoutPanelParamL3.PerformLayout();
+            this.tableLayoutPanelParamR1.ResumeLayout(false);
+            this.tableLayoutPanelParamR1.PerformLayout();
+            this.tableLayoutPanelParamR2.ResumeLayout(false);
+            this.tableLayoutPanelParamR2.PerformLayout();
+            this.tableLayoutPanelMenuR.ResumeLayout(false);
+            this.tableLayoutPanelParamR4.ResumeLayout(false);
+            this.tableLayoutPanelParamR4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -138,8 +488,32 @@
         private System.Windows.Forms.ToolStripMenuItem ファイルToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 読み込みToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBoxL;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelBase;
         private System.Windows.Forms.PictureBox pictureBoxR;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMenuL;
+        private System.Windows.Forms.ComboBox comboBoxProcL;
+        private System.Windows.Forms.Button buttonProcL;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelParamL1;
+        private System.Windows.Forms.TextBox textBoxParamL1;
+        private System.Windows.Forms.Label labelParamL1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelParamL2;
+        private System.Windows.Forms.TextBox textBoxParamL2;
+        private System.Windows.Forms.Label labelParamL2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMenuR;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelParamR4;
+        private System.Windows.Forms.TextBox textBoxProcR3;
+        private System.Windows.Forms.Label labelProcR3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelParamR2;
+        private System.Windows.Forms.TextBox textBoxProcR2;
+        private System.Windows.Forms.Label labelProcR2;
+        private System.Windows.Forms.ComboBox comboBoxProcR;
+        private System.Windows.Forms.Button buttonProcR;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelParamR1;
+        private System.Windows.Forms.TextBox textBoxProcR1;
+        private System.Windows.Forms.Label labelProcR1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelParamL3;
+        private System.Windows.Forms.TextBox textBoxParamL3;
+        private System.Windows.Forms.Label labelParamL3;
     }
 }
 

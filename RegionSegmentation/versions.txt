@@ -14,6 +14,7 @@ RegionSegmentation_03	Sep.04, 2014
 ★今ここ
 	処理の切り替え
 	処理内容/パラメータ比較
+	グレースケールも
 
 RegionSegmentation_02	Aug.25, 2014
 

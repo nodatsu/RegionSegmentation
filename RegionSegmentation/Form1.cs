@@ -13,11 +13,14 @@ namespace RegionSegmentation
     public partial class Form1 : Form
     {
         // 表示用
-        Bitmap outputImage;
+        Bitmap outputImageL;
+        Bitmap outputImageR;
         double outputZoom;
         Point outputShift;
         bool isMouseDrag;
         Point mousePre;
+
+        System.Diagnostics.Stopwatch sw;
 
         public Form1()
         {
@@ -33,99 +36,132 @@ namespace RegionSegmentation
                 OpenCvSharp.CPlusPlus.Mat matSrc = new OpenCvSharp.CPlusPlus.Mat(dialog.FileName);
                 OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
 
-                //// 画像ピラミッドを用いた画像の領域分割 
-                //int level = 4;              // ピラミッドレベル
-                //double threshold1 = 128;    // ピクセルを接続する閾値
-                //double threshold2 = 50;     // クラスタリングの範囲の閾値
+                // 画像ピラミッドを用いた画像の領域分割 
+                this.outputImageL = this.procPyrSegmentation(matSrc);
+                this.outputImageR = this.procPyrSegmentation(matSrc);
 
-                //// IplImageの準備(C API用)
-                //OpenCvSharp.IplImage iplSrc = matSrc.ToIplImage();
-                //OpenCvSharp.IplImage iplDst = iplSrc.Clone();
-
-                //// ピラミッド画像作成のためのROI設定(2^levelで割り切れるサイズ)
-                //OpenCvSharp.CvRect roi;
-                //roi.X = 0;
-                //roi.Y = 0;
-                //roi.Width = iplSrc.Width & -(1 << level);
-                //roi.Height = iplSrc.Height & -(1 << level);
-                //iplSrc.SetROI(roi);
-                //iplDst.SetROI(roi);
-
-                //OpenCvSharp.Cv.PyrSegmentation(iplSrc, iplDst, level, threshold1, threshold2);
-
-                //// IplImage -> Matに戻す
-                //matDst = new OpenCvSharp.CPlusPlus.Mat(iplDst);
-
-                //// 平均値シフト法による画像のセグメント化
-                //double sp = 30; // 空間窓の半径
-                //double sr = 30; // 色空間窓の半径
-                //int level = 4;  // セグメンテーションに用いるピラミッドの最大レベル
-                //OpenCvSharp.CPlusPlus.TermCriteria term = new OpenCvSharp.CPlusPlus.TermCriteria(OpenCvSharp.CriteriaType.Iteration, 5, 1);
-                ////OpenCvSharp.CPlusPlus.TermCriteria term = new OpenCvSharp.CPlusPlus.TermCriteria(OpenCvSharp.CriteriaType.Epsilon, 5, 1);
-
-                //OpenCvSharp.CPlusPlus.Cv2.PyrMeanShiftFiltering(matSrc, matDst, sp, sr, level, term);
+                // 平均値シフト法による画像のセグメント化
+                //this.outputImageL = this.procPyrMeanShiftFiltering(matSrc);
+                //this.outputImageR = this.procPyrMeanShiftFiltering(matSrc);
 
                 // Watershedアルゴリズムによる画像の領域分割 
-
-                // IplImageの準備(C API用)
-                OpenCvSharp.IplImage iplSrc = matSrc.ToIplImage();
-                OpenCvSharp.IplImage iplDst = iplSrc.Clone();
-
-                // マーカ画像の準備
-                OpenCvSharp.IplImage iplMarker = new OpenCvSharp.IplImage(iplSrc.Size, OpenCvSharp.BitDepth.S32, 1);
-                iplMarker.Zero();
-
-                // マーカ設置(等分割)
-                int wdiv = 10;   // 分割数(横)
-                int hdiv = 10;   // 分割数(縦)
-                OpenCvSharp.CvPoint[,] mpt = new OpenCvSharp.CvPoint[wdiv, hdiv];
-                for (int i = 0; i < wdiv; i++)
-                {
-                    for (int j = 0; j < hdiv; j++)
-                    {
-                        mpt[i, j] = new OpenCvSharp.CvPoint((int)(iplSrc.Width / wdiv * (i + 0.5)), (int)(iplSrc.Height / hdiv * (j + 0.5)));
-                        iplMarker.Circle(mpt[i, j], 5, OpenCvSharp.CvScalar.ScalarAll(i * wdiv + j), OpenCvSharp.Cv.FILLED, OpenCvSharp.LineType.Link8, 0);
-                    }
-                }
-
-                // 分割実行
-                OpenCvSharp.Cv.Watershed(iplSrc, iplMarker);
-
-                // マーカの描画
-                for (int i = 0; i < wdiv; i++)
-                {
-                    for (int j = 0; j < hdiv; j++)
-                    {
-                        iplDst.Circle(mpt[i, j], 20, OpenCvSharp.CvColor.White, 3, OpenCvSharp.LineType.Link8, 0);
-                    }
-                }
-
-                // 領域境界の描画
-                for (int i = 0; i < iplMarker.Height; i++)
-                {
-                    for (int j = 0; j < iplMarker.Width; j++)
-                    {
-                        int idx = (int)(iplMarker.Get2D(i, j).Val0);
-                        if (idx == -1)
-                        {
-                            iplDst.Set2D(i, j, OpenCvSharp.CvColor.Red);
-                        }
-                    }
-                }
-
-                // IplImage -> Matに戻す
-                matDst = new OpenCvSharp.CPlusPlus.Mat(iplDst);
-
-                this.outputImage = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+                //this.outputImageL = this.procWatershed(matSrc);
+                //this.outputImageR = this.procWatershed(matSrc);
 
                 this.outputZoom = 1.0;
                 this.outputShift = new Point(0, 0);
                 this.isMouseDrag = false;
                 this.mousePre = new Point(0, 0);
 
-                this.pictureBox1.Invalidate();
-                this.pictureBox2.Invalidate();
+                this.pictureBoxL.Invalidate();
+                this.pictureBoxR.Invalidate();
             }
+        }
+
+        // 画像ピラミッドを用いた画像の領域分割
+        private Bitmap procPyrSegmentation(OpenCvSharp.CPlusPlus.Mat matSrc)
+        {
+            int level = 4;              // ピラミッドレベル
+            double threshold1 = 128;    // ピクセルを接続する閾値
+            double threshold2 = 50;     // クラスタリングの範囲の閾値
+
+            // Matの準備
+            OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
+
+            // IplImageの準備(C API用)
+            OpenCvSharp.IplImage iplSrc = matSrc.ToIplImage();
+            OpenCvSharp.IplImage iplDst = iplSrc.Clone();
+
+            // ピラミッド画像作成のためのROI設定(2^levelで割り切れるサイズ)
+            OpenCvSharp.CvRect roi;
+            roi.X = 0;
+            roi.Y = 0;
+            roi.Width = iplSrc.Width & -(1 << level);
+            roi.Height = iplSrc.Height & -(1 << level);
+            iplSrc.SetROI(roi);
+            iplDst.SetROI(roi);
+
+            OpenCvSharp.Cv.PyrSegmentation(iplSrc, iplDst, level, threshold1, threshold2);
+
+            // IplImage -> Matに戻す
+            matDst = new OpenCvSharp.CPlusPlus.Mat(iplDst);
+
+            return OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+        }
+
+        // 平均値シフト法による画像のセグメント化
+        private Bitmap procPyrMeanShiftFiltering(OpenCvSharp.CPlusPlus.Mat matSrc)
+        {
+            double sp = 30; // 空間窓の半径
+            double sr = 30; // 色空間窓の半径
+            int level = 4;  // セグメンテーションに用いるピラミッドの最大レベル
+            OpenCvSharp.CPlusPlus.TermCriteria term = new OpenCvSharp.CPlusPlus.TermCriteria(OpenCvSharp.CriteriaType.Iteration, 5, 1);
+            //OpenCvSharp.CPlusPlus.TermCriteria term = new OpenCvSharp.CPlusPlus.TermCriteria(OpenCvSharp.CriteriaType.Epsilon, 5, 1);
+
+            // Matの準備
+            OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
+
+            OpenCvSharp.CPlusPlus.Cv2.PyrMeanShiftFiltering(matSrc, matDst, sp, sr, level, term);
+
+            return OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+        }
+
+        // Watershedアルゴリズムによる画像の領域分割 
+        private Bitmap procWatershed(OpenCvSharp.CPlusPlus.Mat matSrc)
+        {
+            // Matの準備
+            OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
+
+            // IplImageの準備(C API用)
+            OpenCvSharp.IplImage iplSrc = matSrc.ToIplImage();
+            OpenCvSharp.IplImage iplDst = iplSrc.Clone();
+
+            // マーカ画像の準備
+            OpenCvSharp.IplImage iplMarker = new OpenCvSharp.IplImage(iplSrc.Size, OpenCvSharp.BitDepth.S32, 1);
+            iplMarker.Zero();
+
+            // マーカ設置(等分割)
+            int wdiv = 10;   // 分割数(横)
+            int hdiv = 10;   // 分割数(縦)
+            OpenCvSharp.CvPoint[,] mpt = new OpenCvSharp.CvPoint[wdiv, hdiv];
+            for (int i = 0; i < wdiv; i++)
+            {
+                for (int j = 0; j < hdiv; j++)
+                {
+                    mpt[i, j] = new OpenCvSharp.CvPoint((int)(iplSrc.Width / wdiv * (i + 0.5)), (int)(iplSrc.Height / hdiv * (j + 0.5)));
+                    iplMarker.Circle(mpt[i, j], 5, OpenCvSharp.CvScalar.ScalarAll(i * wdiv + j), OpenCvSharp.Cv.FILLED, OpenCvSharp.LineType.Link8, 0);
+                }
+            }
+
+            // 分割実行
+            OpenCvSharp.Cv.Watershed(iplSrc, iplMarker);
+
+            // マーカの描画
+            for (int i = 0; i < wdiv; i++)
+            {
+                for (int j = 0; j < hdiv; j++)
+                {
+                    iplDst.Circle(mpt[i, j], 20, OpenCvSharp.CvColor.White, 3, OpenCvSharp.LineType.Link8, 0);
+                }
+            }
+
+            // 領域境界の描画
+            for (int i = 0; i < iplMarker.Height; i++)
+            {
+                for (int j = 0; j < iplMarker.Width; j++)
+                {
+                    int idx = (int)(iplMarker.Get2D(i, j).Val0);
+                    if (idx == -1)
+                    {
+                        iplDst.Set2D(i, j, OpenCvSharp.CvColor.Red);
+                    }
+                }
+            }
+
+            // IplImage -> Matに戻す
+            matDst = new OpenCvSharp.CPlusPlus.Mat(iplDst);
+
+            return OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
         }
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -160,8 +196,8 @@ namespace RegionSegmentation
             this.mousePre.Y = e.Y;
 
             // 再描画
-            this.pictureBox1.Invalidate();
-            this.pictureBox2.Invalidate();
+            this.pictureBoxL.Invalidate();
+            this.pictureBoxR.Invalidate();
         }
 
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
@@ -203,27 +239,40 @@ namespace RegionSegmentation
             }
 
             // 再描画
-            this.pictureBox1.Invalidate();
-            this.pictureBox2.Invalidate();
+            this.pictureBoxL.Invalidate();
+            this.pictureBoxR.Invalidate();
         }
 
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        private void pictureBoxL_Paint(object sender, PaintEventArgs e)
         {
-            if (this.outputImage != null)
+            if (this.outputImageL != null)
             {
                 // アスペクトとスケール
-                double aspect = (double)this.outputImage.Width / this.outputImage.Height;
+                double aspect = (double)this.outputImageL.Width / this.outputImageL.Height;
                 double scale = Math.Min((double)((PictureBox)sender).Height, ((PictureBox)sender).Width / aspect) * this.outputZoom;
 
                 // 描画
-                e.Graphics.DrawImage(this.outputImage, this.outputShift.X, this.outputShift.Y, (int)(scale * aspect), (int)scale);
+                e.Graphics.DrawImage(this.outputImageL, this.outputShift.X, this.outputShift.Y, (int)(scale * aspect), (int)scale);
+            }
+        }
+
+        private void pictureBoxR_Paint(object sender, PaintEventArgs e)
+        {
+            if (this.outputImageR != null)
+            {
+                // アスペクトとスケール
+                double aspect = (double)this.outputImageR.Width / this.outputImageR.Height;
+                double scale = Math.Min((double)((PictureBox)sender).Height, ((PictureBox)sender).Width / aspect) * this.outputZoom;
+
+                // 描画
+                e.Graphics.DrawImage(this.outputImageR, this.outputShift.X, this.outputShift.Y, (int)(scale * aspect), (int)scale);
             }
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
-            this.pictureBox1.Invalidate();
-            this.pictureBox2.Invalidate();
+            this.pictureBoxL.Invalidate();
+            this.pictureBoxR.Invalidate();
         }
     }
 }

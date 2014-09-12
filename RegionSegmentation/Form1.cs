@@ -13,6 +13,7 @@ namespace RegionSegmentation
     public partial class Form1 : Form
     {
         // 画像データ
+        OpenCvSharp.CPlusPlus.Mat matOrg;
         OpenCvSharp.CPlusPlus.Mat matL;
         OpenCvSharp.CPlusPlus.Mat matR;
         
@@ -35,8 +36,9 @@ namespace RegionSegmentation
             OpenFileDialog dialog = new OpenFileDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                this.matL = new OpenCvSharp.CPlusPlus.Mat(dialog.FileName);
-                this.matR = this.matL.Clone();
+                this.matOrg = new OpenCvSharp.CPlusPlus.Mat(dialog.FileName);
+                this.matL = this.matOrg.Clone();
+                this.matR = this.matOrg.Clone();
 
                 this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matL);
                 this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matR);
@@ -153,19 +155,24 @@ namespace RegionSegmentation
 
             OpenCvSharp.CPlusPlus.Mat matDst;
 
-            if (this.comboBoxProcL.Text.Equals("PyrSegmentation"))
+            if (this.comboBoxProcL.Text.Equals("none (reset)"))
+            {
+                this.matL = this.matOrg.Clone();
+                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matL);
+            }
+            else if (this.comboBoxProcL.Text.Equals("PyrSegmentation"))
             {
                 // 画像ピラミッドを用いた画像の領域分割
                 matDst = this.procPyrSegmentation(matL, int.Parse(this.textBoxParamL1.Text), double.Parse(this.textBoxParamL2.Text), double.Parse(this.textBoxParamL3.Text));
-                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
                 this.matL = matDst;
+                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matL);
             }
             else if (this.comboBoxProcL.Text.Equals("PyrMeanShiftFiltering"))
             {
                 // 平均値シフト法による画像のセグメント化
                 matDst = this.procPyrMeanShiftFiltering(matL, double.Parse(this.textBoxParamL1.Text), double.Parse(this.textBoxParamL2.Text), int.Parse(this.textBoxParamL3.Text));
-                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
                 this.matL = matDst;
+                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matL);
             }
             else if (this.comboBoxProcL.Text.Equals("Watershed"))
             {
@@ -184,19 +191,25 @@ namespace RegionSegmentation
 
             OpenCvSharp.CPlusPlus.Mat matDst;
 
-            if (this.comboBoxProcR.Text.Equals("PyrSegmentation"))
+            if (this.comboBoxProcR.Text.Equals("none (reset)"))
+            {
+                this.matR = this.matOrg.Clone();
+                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(this.matR);
+            }
+            else if (this.comboBoxProcR.Text.Equals("PyrSegmentation"))
             {
                 // 画像ピラミッドを用いた画像の領域分割
                 matDst = this.procPyrSegmentation(matR, int.Parse(this.textBoxParamR1.Text), double.Parse(this.textBoxParamR2.Text), double.Parse(this.textBoxParamR3.Text));
                 this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
                 this.matR = matDst;
+                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matR);
             }
             else if (this.comboBoxProcR.Text.Equals("PyrMeanShiftFiltering"))
             {
                 // 平均値シフト法による画像のセグメント化
                 matDst = this.procPyrMeanShiftFiltering(matR, double.Parse(this.textBoxParamR1.Text), double.Parse(this.textBoxParamR2.Text), int.Parse(this.textBoxParamR3.Text));
-                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
                 this.matR = matDst;
+                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matR);
             }
             else if (this.comboBoxProcR.Text.Equals("Watershed"))
             {

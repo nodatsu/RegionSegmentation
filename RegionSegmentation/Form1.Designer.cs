@@ -228,7 +228,7 @@
             this.comboBoxProcR.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxProcR.FormattingEnabled = true;
             this.comboBoxProcR.Items.AddRange(new object[] {
-            "none",
+            "none (reset)",
             "PyrSegmentation",
             "PyrMeanShiftFiltering",
             "Watershed"});
@@ -395,7 +395,7 @@
             this.comboBoxProcL.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxProcL.FormattingEnabled = true;
             this.comboBoxProcL.Items.AddRange(new object[] {
-            "none",
+            "none (reset)",
             "PyrSegmentation",
             "PyrMeanShiftFiltering",
             "Watershed"});

@@ -187,7 +187,7 @@ namespace RegionSegmentation
             if (this.comboBoxProcR.Text.Equals("PyrSegmentation"))
             {
                 // 画像ピラミッドを用いた画像の領域分割
-                matDst = this.procPyrSegmentation(matR, int.Parse(this.textBoxParamR1.Text), int.Parse(this.textBoxParamR2.Text), int.Parse(this.textBoxParamR3.Text));
+                matDst = this.procPyrSegmentation(matR, int.Parse(this.textBoxParamR1.Text), double.Parse(this.textBoxParamR2.Text), double.Parse(this.textBoxParamR3.Text));
                 this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
                 this.matR = matDst;
             }

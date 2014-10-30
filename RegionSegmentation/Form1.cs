@@ -90,6 +90,16 @@ namespace RegionSegmentation
                 this.labelParamL3.Text = "マーカサイズ";
                 this.textBoxParamL3.Text = "5";
             }
+            else if (this.comboBoxProcL.Text.Equals("Canny"))
+            {
+                // エッジ抽出(Canny)
+                this.labelParamL1.Text = "閾値1(接続)";
+                this.textBoxParamL1.Text = "100";
+                this.labelParamL2.Text = "閾値2(始点)";
+                this.textBoxParamL2.Text = "200";
+                this.labelParamL3.Text = "Sobel演算サイズ";
+                this.textBoxParamL3.Text = "3";
+            }
             else
             {
                 // 何もしない
@@ -135,6 +145,16 @@ namespace RegionSegmentation
                 this.textBoxParamR2.Text = "10";
                 this.labelParamR3.Text = "マーカサイズ";
                 this.textBoxParamR3.Text = "5";
+            }
+            else if (this.comboBoxProcR.Text.Equals("Canny"))
+            {
+                // エッジ抽出(Canny)
+                this.labelParamR1.Text = "閾値1(接続)";
+                this.textBoxParamR1.Text = "100";
+                this.labelParamR2.Text = "閾値2(始点)";
+                this.textBoxParamR2.Text = "200";
+                this.labelParamR3.Text = "Sobel演算サイズ";
+                this.textBoxParamR3.Text = "3";
             }
             else
             {
@@ -186,6 +206,12 @@ namespace RegionSegmentation
                 matDst = this.procGrayScale(matL);
                 this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
             }
+            else if (this.comboBoxProcL.Text.Equals("Canny"))
+            {
+                // エッジ抽出(Canny) 
+                matDst = this.procCanny(matL, double.Parse(this.textBoxParamL1.Text), double.Parse(this.textBoxParamL2.Text), int.Parse(this.textBoxParamL3.Text));
+                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            }
 
             this.pictureBoxL.Invalidate();
         }
@@ -223,14 +249,31 @@ namespace RegionSegmentation
                 matDst = this.procWatershed(matR, int.Parse(this.textBoxParamR1.Text), int.Parse(this.textBoxParamR2.Text), int.Parse(this.textBoxParamR3.Text));
                 this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
             }
-            else if (this.comboBoxProcL.Text.Equals("GrayScale"))
+            else if (this.comboBoxProcR.Text.Equals("GrayScale"))
             {
                 // グレースケール化 
                 matDst = this.procGrayScale(matR);
                 this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
             }
+            else if (this.comboBoxProcR.Text.Equals("Canny"))
+            {
+                // エッジ抽出(Canny) 
+                matDst = this.procCanny(matR, double.Parse(this.textBoxParamR1.Text), double.Parse(this.textBoxParamR2.Text), int.Parse(this.textBoxParamR3.Text));
+                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            }
 
             this.pictureBoxR.Invalidate();
+        }
+
+        // エッジ抽出(Canny)
+        private OpenCvSharp.CPlusPlus.Mat procCanny(OpenCvSharp.CPlusPlus.Mat matSrc, double threshold1, double threshold2, int apertureSize)
+        {
+            // Matの準備
+            OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
+
+            OpenCvSharp.CPlusPlus.Cv2.Canny(matSrc, matDst, threshold1, threshold2, apertureSize);
+
+            return matDst;
         }
 
         // グレースケール化

@@ -180,6 +180,12 @@ namespace RegionSegmentation
                 matDst = this.procWatershed(matL, int.Parse(this.textBoxParamL1.Text), int.Parse(this.textBoxParamL2.Text), int.Parse(this.textBoxParamL3.Text));
                 this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
             }
+            else if (this.comboBoxProcL.Text.Equals("GrayScale"))
+            {
+                // グレースケール化 
+                matDst = this.procGrayScale(matL);
+                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            }
 
             this.pictureBoxL.Invalidate();
         }
@@ -217,8 +223,25 @@ namespace RegionSegmentation
                 matDst = this.procWatershed(matR, int.Parse(this.textBoxParamR1.Text), int.Parse(this.textBoxParamR2.Text), int.Parse(this.textBoxParamR3.Text));
                 this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
             }
+            else if (this.comboBoxProcL.Text.Equals("GrayScale"))
+            {
+                // グレースケール化 
+                matDst = this.procGrayScale(matR);
+                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            }
 
             this.pictureBoxR.Invalidate();
+        }
+
+        // グレースケール化
+        private OpenCvSharp.CPlusPlus.Mat procGrayScale(OpenCvSharp.CPlusPlus.Mat matSrc)
+        {
+            // Matの準備
+            OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
+
+            OpenCvSharp.CPlusPlus.Cv2.CvtColor(matSrc, matDst, OpenCvSharp.ColorConversion.BgraToGray);
+
+            return matDst;
         }
 
         // 画像ピラミッドを用いた画像の領域分割

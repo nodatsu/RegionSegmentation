@@ -231,7 +231,8 @@
             "none (reset)",
             "PyrSegmentation",
             "PyrMeanShiftFiltering",
-            "Watershed"});
+            "Watershed",
+            "GrayScale"});
             this.comboBoxProcR.Location = new System.Drawing.Point(4, 4);
             this.comboBoxProcR.Name = "comboBoxProcR";
             this.comboBoxProcR.Size = new System.Drawing.Size(92, 20);
@@ -398,7 +399,8 @@
             "none (reset)",
             "PyrSegmentation",
             "PyrMeanShiftFiltering",
-            "Watershed"});
+            "Watershed",
+            "GrayScale"});
             this.comboBoxProcL.Location = new System.Drawing.Point(4, 4);
             this.comboBoxProcL.Name = "comboBoxProcL";
             this.comboBoxProcL.Size = new System.Drawing.Size(92, 20);

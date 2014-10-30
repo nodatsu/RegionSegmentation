@@ -64,9 +64,9 @@ namespace RegionSegmentation
                 // 画像ピラミッドを用いた画像の領域分割
                 // パラメータ: ピラミッドレベル, ピクセルを接続する閾値, クラスタリングの範囲の閾値
                 this.labelParamL1.Text = "ピラミッドレベル";
-                this.textBoxParamL1.Text = "4";
+                this.textBoxParamL1.Text = "9";
                 this.labelParamL2.Text = "ピクセルを接続する閾値";
-                this.textBoxParamL2.Text = "128.0";
+                this.textBoxParamL2.Text = "16.0";
                 this.labelParamL3.Text = "クラスタリングの範囲の閾値";
                 this.textBoxParamL3.Text = "50.0";
             }
@@ -76,7 +76,7 @@ namespace RegionSegmentation
                 this.labelParamL1.Text = "空間窓の半径";
                 this.textBoxParamL1.Text = "30.0";
                 this.labelParamL2.Text = "色空間窓の半径";
-                this.textBoxParamL2.Text = "30.0";
+                this.textBoxParamL2.Text = "10.0";
                 this.labelParamL3.Text = "最大ピラミッドレベル";
                 this.textBoxParamL3.Text = "4";
             }
@@ -110,9 +110,9 @@ namespace RegionSegmentation
                 // 画像ピラミッドを用いた画像の領域分割
                 // パラメータ: ピラミッドレベル, ピクセルを接続する閾値, クラスタリングの範囲の閾値
                 this.labelParamR1.Text = "ピラミッドレベル";
-                this.textBoxParamR1.Text = "4";
+                this.textBoxParamR1.Text = "9";
                 this.labelParamR2.Text = "ピクセルを接続する閾値";
-                this.textBoxParamR2.Text = "128.0";
+                this.textBoxParamR2.Text = "16.0";
                 this.labelParamR3.Text = "クラスタリングの範囲の閾値";
                 this.textBoxParamR3.Text = "50.0";
             }
@@ -122,7 +122,7 @@ namespace RegionSegmentation
                 this.labelParamR1.Text = "空間窓の半径";
                 this.textBoxParamR1.Text = "30.0";
                 this.labelParamR2.Text = "色空間窓の半径";
-                this.textBoxParamR2.Text = "30.0";
+                this.textBoxParamR2.Text = "10.0";
                 this.labelParamR3.Text = "最大ピラミッドレベル";
                 this.textBoxParamR3.Text = "4";
             }

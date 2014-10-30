@@ -2,6 +2,14 @@
 
 TODO
 	パラメータの意味を調べる
+	処理内容/パラメータ比較
+	グレースケールも
+
+RegionSegmentation_04	Oct.30, 2014
+
+	デフォルトパラメータを最適値に
+★今ここ
+	Hough変換を導入
 
 RegionSegmentation_03	Sep.04, 2014
 
@@ -10,10 +18,6 @@ RegionSegmentation_03	Sep.04, 2014
 	メニュー作成、処理の切り替え、パラメータ読み込み
 
 	versions.txtの組み込み
-
-★今ここ
-	処理内容/パラメータ比較
-	グレースケールも
 
 RegionSegmentation_02	Aug.25, 2014
 

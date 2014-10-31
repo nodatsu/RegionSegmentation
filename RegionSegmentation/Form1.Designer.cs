@@ -233,7 +233,8 @@
             "PyrMeanShiftFiltering",
             "Watershed",
             "GrayScale",
-            "Canny"});
+            "Canny",
+            "Binary"});
             this.comboBoxProcR.Location = new System.Drawing.Point(4, 4);
             this.comboBoxProcR.Name = "comboBoxProcR";
             this.comboBoxProcR.Size = new System.Drawing.Size(92, 20);
@@ -402,7 +403,8 @@
             "PyrMeanShiftFiltering",
             "Watershed",
             "GrayScale",
-            "Canny"});
+            "Canny",
+            "Binary"});
             this.comboBoxProcL.Location = new System.Drawing.Point(4, 4);
             this.comboBoxProcL.Name = "comboBoxProcL";
             this.comboBoxProcL.Size = new System.Drawing.Size(92, 20);

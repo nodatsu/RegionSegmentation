@@ -212,6 +212,12 @@ namespace RegionSegmentation
                 matDst = this.procCanny(matL, double.Parse(this.textBoxParamL1.Text), double.Parse(this.textBoxParamL2.Text), int.Parse(this.textBoxParamL3.Text));
                 this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
             }
+            else if (this.comboBoxProcL.Text.Equals("Binary"))
+            {
+                // 2値化(グレースケール化 + 2値化)
+                matDst = this.procBinary(matL);
+                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            }
 
             this.pictureBoxL.Invalidate();
         }
@@ -261,8 +267,29 @@ namespace RegionSegmentation
                 matDst = this.procCanny(matR, double.Parse(this.textBoxParamR1.Text), double.Parse(this.textBoxParamR2.Text), int.Parse(this.textBoxParamR3.Text));
                 this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
             }
+            else if (this.comboBoxProcR.Text.Equals("Binary"))
+            {
+                // 2値化(グレースケール化 + 2値化)
+                matDst = this.procBinary(matR);
+                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+            }
 
             this.pictureBoxR.Invalidate();
+        }
+
+        // 2値化(グレースケール化 + 2値化)
+        private OpenCvSharp.CPlusPlus.Mat procBinary(OpenCvSharp.CPlusPlus.Mat matSrc)
+        {
+            // Matの準備
+            //OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
+            OpenCvSharp.CPlusPlus.Mat matDst = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
+            OpenCvSharp.CPlusPlus.Mat matGray = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
+
+            OpenCvSharp.CPlusPlus.Cv2.CvtColor(matSrc, matGray, OpenCvSharp.ColorConversion.BgraToGray, 1);
+
+            OpenCvSharp.CPlusPlus.Cv2.Threshold(matGray, matDst, 0, 255, OpenCvSharp.ThresholdType.Binary | OpenCvSharp.ThresholdType.Otsu);
+
+            return matDst;
         }
 
         // エッジ抽出(Canny)
@@ -280,9 +307,10 @@ namespace RegionSegmentation
         private OpenCvSharp.CPlusPlus.Mat procGrayScale(OpenCvSharp.CPlusPlus.Mat matSrc)
         {
             // Matの準備
-            OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
+            //OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
+            OpenCvSharp.CPlusPlus.Mat matDst = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
 
-            OpenCvSharp.CPlusPlus.Cv2.CvtColor(matSrc, matDst, OpenCvSharp.ColorConversion.BgraToGray);
+            OpenCvSharp.CPlusPlus.Cv2.CvtColor(matSrc, matDst, OpenCvSharp.ColorConversion.BgraToGray, 1);
 
             return matDst;
         }

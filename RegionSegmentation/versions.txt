@@ -8,7 +8,11 @@ TODO
 RegionSegmentation_04	Oct.30, 2014
 
 	デフォルトパラメータを最適値に
+	グレースケール処理追加
+	エッジ抽出(Canny)処理追加
+	2値化処理
 ★今ここ
+	輪郭抽出
 	Hough変換を導入
 
 RegionSegmentation_03	Sep.04, 2014

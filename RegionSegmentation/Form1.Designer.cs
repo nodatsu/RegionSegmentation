@@ -234,7 +234,9 @@
             "Watershed",
             "GrayScale",
             "Canny",
-            "Binary"});
+            "Binary",
+            "Hough",
+            "Contour"});
             this.comboBoxProcR.Location = new System.Drawing.Point(4, 4);
             this.comboBoxProcR.Name = "comboBoxProcR";
             this.comboBoxProcR.Size = new System.Drawing.Size(92, 20);
@@ -404,7 +406,9 @@
             "Watershed",
             "GrayScale",
             "Canny",
-            "Binary"});
+            "Binary",
+            "Hough",
+            "Contour"});
             this.comboBoxProcL.Location = new System.Drawing.Point(4, 4);
             this.comboBoxProcL.Name = "comboBoxProcL";
             this.comboBoxProcL.Size = new System.Drawing.Size(92, 20);

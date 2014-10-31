@@ -198,14 +198,14 @@ namespace RegionSegmentation
         // 2値化(グレースケール化 + 2値化)
         private OpenCvSharp.CPlusPlus.Mat procBinary(OpenCvSharp.CPlusPlus.Mat matSrc)
         {
-            // Matの準備
-            //OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
-            OpenCvSharp.CPlusPlus.Mat matDst = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
+            OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
             OpenCvSharp.CPlusPlus.Mat matGray = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
+            OpenCvSharp.CPlusPlus.Mat matBinary = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
 
             OpenCvSharp.CPlusPlus.Cv2.CvtColor(matSrc, matGray, OpenCvSharp.ColorConversion.BgraToGray, 1);
+            OpenCvSharp.CPlusPlus.Cv2.Threshold(matGray, matBinary, 0, 255, OpenCvSharp.ThresholdType.Binary | OpenCvSharp.ThresholdType.Otsu);
 
-            OpenCvSharp.CPlusPlus.Cv2.Threshold(matGray, matDst, 0, 255, OpenCvSharp.ThresholdType.Binary | OpenCvSharp.ThresholdType.Otsu);
+            OpenCvSharp.CPlusPlus.Cv2.CvtColor(matBinary, matDst, OpenCvSharp.ColorConversion.GrayToBgra, 3);
 
             return matDst;
         }
@@ -213,10 +213,12 @@ namespace RegionSegmentation
         // エッジ抽出(Canny)
         private OpenCvSharp.CPlusPlus.Mat procCanny(OpenCvSharp.CPlusPlus.Mat matSrc, double threshold1, double threshold2, int apertureSize)
         {
-            // Matの準備
             OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
+            OpenCvSharp.CPlusPlus.Mat matCanny = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
 
-            OpenCvSharp.CPlusPlus.Cv2.Canny(matSrc, matDst, threshold1, threshold2, apertureSize);
+            OpenCvSharp.CPlusPlus.Cv2.Canny(matSrc, matCanny, threshold1, threshold2, apertureSize);
+
+            OpenCvSharp.CPlusPlus.Cv2.CvtColor(matCanny, matDst, OpenCvSharp.ColorConversion.GrayToBgra, 3);
 
             return matDst;
         }
@@ -224,11 +226,12 @@ namespace RegionSegmentation
         // グレースケール化
         private OpenCvSharp.CPlusPlus.Mat procGrayScale(OpenCvSharp.CPlusPlus.Mat matSrc)
         {
-            // Matの準備
-            //OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
-            OpenCvSharp.CPlusPlus.Mat matDst = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
+            OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
+            OpenCvSharp.CPlusPlus.Mat matGray = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
 
-            OpenCvSharp.CPlusPlus.Cv2.CvtColor(matSrc, matDst, OpenCvSharp.ColorConversion.BgraToGray, 1);
+            OpenCvSharp.CPlusPlus.Cv2.CvtColor(matSrc, matGray, OpenCvSharp.ColorConversion.BgraToGray, 1);
+
+            OpenCvSharp.CPlusPlus.Cv2.CvtColor(matGray, matDst, OpenCvSharp.ColorConversion.GrayToBgra, 3);
 
             return matDst;
         }

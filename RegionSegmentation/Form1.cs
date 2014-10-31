@@ -59,165 +59,75 @@ namespace RegionSegmentation
         // 左側処理切り替え
         private void comboBoxProcL_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.comboBoxProcL.Text.Equals("PyrSegmentation"))
-            {
-                // 画像ピラミッドを用いた画像の領域分割
-                // パラメータ: ピラミッドレベル, ピクセルを接続する閾値, クラスタリングの範囲の閾値
-                this.labelParamL1.Text = "ピラミッドレベル";
-                this.textBoxParamL1.Text = "9";
-                this.labelParamL2.Text = "ピクセルを接続する閾値";
-                this.textBoxParamL2.Text = "16.0";
-                this.labelParamL3.Text = "クラスタリングの範囲の閾値";
-                this.textBoxParamL3.Text = "50.0";
-            }
-            else if (this.comboBoxProcL.Text.Equals("PyrMeanShiftFiltering"))
-            {
-                // 平均値シフト法による画像のセグメント化
-                this.labelParamL1.Text = "空間窓の半径";
-                this.textBoxParamL1.Text = "30.0";
-                this.labelParamL2.Text = "色空間窓の半径";
-                this.textBoxParamL2.Text = "10.0";
-                this.labelParamL3.Text = "最大ピラミッドレベル";
-                this.textBoxParamL3.Text = "4";
-            }
-            else if (this.comboBoxProcL.Text.Equals("Watershed"))
-            {
-                // Watershedアルゴリズムによる画像の領域分割
-                this.labelParamL1.Text = "マーカ数(横)";
-                this.textBoxParamL1.Text = "10";
-                this.labelParamL2.Text = "マーカ数(縦)";
-                this.textBoxParamL2.Text = "10";
-                this.labelParamL3.Text = "マーカサイズ";
-                this.textBoxParamL3.Text = "5";
-            }
-            else if (this.comboBoxProcL.Text.Equals("Canny"))
-            {
-                // エッジ抽出(Canny)
-                this.labelParamL1.Text = "閾値1(接続)";
-                this.textBoxParamL1.Text = "100";
-                this.labelParamL2.Text = "閾値2(始点)";
-                this.textBoxParamL2.Text = "200";
-                this.labelParamL3.Text = "Sobel演算サイズ";
-                this.textBoxParamL3.Text = "3";
-            }
-            else
-            {
-                // 何もしない
-                this.labelParamL1.Text = "Param1";
-                this.textBoxParamL1.Text = "";
-                this.labelParamL2.Text = "Param2";
-                this.textBoxParamL2.Text = "";
-                this.labelParamL3.Text = "Param3";
-                this.textBoxParamL3.Text = "";
-            }
+            this.comboBoxProcLR_SelectedIndexChanged(this.comboBoxProcL, this.labelParamL1, this.textBoxParamL1, this.labelParamL2, this.textBoxParamL2, this.labelParamL3, this.textBoxParamL3);
         }
 
         // 右側処理切り替え
         private void comboBoxProcR_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.comboBoxProcR.Text.Equals("PyrSegmentation"))
+            this.comboBoxProcLR_SelectedIndexChanged(this.comboBoxProcR, this.labelParamR1, this.textBoxParamR1, this.labelParamR2, this.textBoxParamR2, this.labelParamR3, this.textBoxParamR3);
+        }
+
+        // 左右処理切り替え本体
+        private void comboBoxProcLR_SelectedIndexChanged(ComboBox cb, Label lb1, TextBox tb1, Label lb2, TextBox tb2, Label lb3, TextBox tb3)
+        {
+            if (cb.Text.Equals("PyrSegmentation"))
             {
                 // 画像ピラミッドを用いた画像の領域分割
                 // パラメータ: ピラミッドレベル, ピクセルを接続する閾値, クラスタリングの範囲の閾値
-                this.labelParamR1.Text = "ピラミッドレベル";
-                this.textBoxParamR1.Text = "9";
-                this.labelParamR2.Text = "ピクセルを接続する閾値";
-                this.textBoxParamR2.Text = "16.0";
-                this.labelParamR3.Text = "クラスタリングの範囲の閾値";
-                this.textBoxParamR3.Text = "50.0";
+                lb1.Text = "ピラミッドレベル";
+                tb1.Text = "9";
+                lb2.Text = "ピクセルを接続する閾値";
+                tb2.Text = "16.0";
+                lb3.Text = "クラスタリングの範囲の閾値";
+                tb3.Text = "50.0";
             }
-            else if (this.comboBoxProcR.Text.Equals("PyrMeanShiftFiltering"))
+            else if (cb.Text.Equals("PyrMeanShiftFiltering"))
             {
                 // 平均値シフト法による画像のセグメント化
-                this.labelParamR1.Text = "空間窓の半径";
-                this.textBoxParamR1.Text = "30.0";
-                this.labelParamR2.Text = "色空間窓の半径";
-                this.textBoxParamR2.Text = "10.0";
-                this.labelParamR3.Text = "最大ピラミッドレベル";
-                this.textBoxParamR3.Text = "4";
+                lb1.Text = "空間窓の半径";
+                tb1.Text = "30.0";
+                lb2.Text = "色空間窓の半径";
+                tb2.Text = "10.0";
+                lb3.Text = "最大ピラミッドレベル";
+                tb3.Text = "4";
             }
-            else if (this.comboBoxProcR.Text.Equals("Watershed"))
+            else if (cb.Text.Equals("Watershed"))
             {
                 // Watershedアルゴリズムによる画像の領域分割
-                this.labelParamR1.Text = "マーカ数(横)";
-                this.textBoxParamR1.Text = "10";
-                this.labelParamR2.Text = "マーカ数(縦)";
-                this.textBoxParamR2.Text = "10";
-                this.labelParamR3.Text = "マーカサイズ";
-                this.textBoxParamR3.Text = "5";
+                lb1.Text = "マーカ数(横)";
+                tb1.Text = "10";
+                lb2.Text = "マーカ数(縦)";
+                tb2.Text = "10";
+                lb3.Text = "マーカサイズ";
+                tb3.Text = "5";
             }
-            else if (this.comboBoxProcR.Text.Equals("Canny"))
+            else if (cb.Text.Equals("Canny"))
             {
                 // エッジ抽出(Canny)
-                this.labelParamR1.Text = "閾値1(接続)";
-                this.textBoxParamR1.Text = "100";
-                this.labelParamR2.Text = "閾値2(始点)";
-                this.textBoxParamR2.Text = "200";
-                this.labelParamR3.Text = "Sobel演算サイズ";
-                this.textBoxParamR3.Text = "3";
+                lb1.Text = "閾値1(接続)";
+                tb1.Text = "100";
+                lb2.Text = "閾値2(始点)";
+                tb2.Text = "200";
+                lb3.Text = "Sobel演算サイズ";
+                tb3.Text = "3";
             }
             else
             {
                 // 何もしない
-                this.labelParamR1.Text = "Param1";
-                this.textBoxParamR1.Text = "";
-                this.labelParamR2.Text = "Param2";
-                this.textBoxParamR2.Text = "";
-                this.labelParamR3.Text = "Param3";
-                this.textBoxParamR3.Text = "";
+                lb1.Text = "Param1";
+                tb1.Text = "";
+                lb2.Text = "Param2";
+                tb2.Text = "";
+                lb3.Text = "Param3";
+                tb3.Text = "";
             }
         }
 
         // 左側処理
         private void buttonProcL_Click(object sender, EventArgs e)
         {
-            if (matL == null) return;
-
-            OpenCvSharp.CPlusPlus.Mat matDst;
-
-            if (this.comboBoxProcL.Text.Equals("none (reset)"))
-            {
-                this.matL = this.matOrg.Clone();
-                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matL);
-            }
-            else if (this.comboBoxProcL.Text.Equals("PyrSegmentation"))
-            {
-                // 画像ピラミッドを用いた画像の領域分割
-                matDst = this.procPyrSegmentation(matL, int.Parse(this.textBoxParamL1.Text), double.Parse(this.textBoxParamL2.Text), double.Parse(this.textBoxParamL3.Text));
-                this.matL = matDst;
-                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matL);
-            }
-            else if (this.comboBoxProcL.Text.Equals("PyrMeanShiftFiltering"))
-            {
-                // 平均値シフト法による画像のセグメント化
-                matDst = this.procPyrMeanShiftFiltering(matL, double.Parse(this.textBoxParamL1.Text), double.Parse(this.textBoxParamL2.Text), int.Parse(this.textBoxParamL3.Text));
-                this.matL = matDst;
-                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matL);
-            }
-            else if (this.comboBoxProcL.Text.Equals("Watershed"))
-            {
-                // Watershedアルゴリズムによる画像の領域分割 
-                matDst = this.procWatershed(matL, int.Parse(this.textBoxParamL1.Text), int.Parse(this.textBoxParamL2.Text), int.Parse(this.textBoxParamL3.Text));
-                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
-            }
-            else if (this.comboBoxProcL.Text.Equals("GrayScale"))
-            {
-                // グレースケール化 
-                matDst = this.procGrayScale(matL);
-                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
-            }
-            else if (this.comboBoxProcL.Text.Equals("Canny"))
-            {
-                // エッジ抽出(Canny) 
-                matDst = this.procCanny(matL, double.Parse(this.textBoxParamL1.Text), double.Parse(this.textBoxParamL2.Text), int.Parse(this.textBoxParamL3.Text));
-                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
-            }
-            else if (this.comboBoxProcL.Text.Equals("Binary"))
-            {
-                // 2値化(グレースケール化 + 2値化)
-                matDst = this.procBinary(matL);
-                this.outputImageL = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
-            }
+            this.buttonProcLR_Click(this.comboBoxProcL, ref this.matL, ref this.outputImageL, this.textBoxParamL1, this.textBoxParamL2, this.textBoxParamL3);
 
             this.pictureBoxL.Invalidate();
         }
@@ -225,56 +135,64 @@ namespace RegionSegmentation
         // 右側処理
         private void buttonProcR_Click(object sender, EventArgs e)
         {
-            if (matR == null) return;
+            this.buttonProcLR_Click(this.comboBoxProcR, ref this.matR, ref this.outputImageR, this.textBoxParamR1, this.textBoxParamR2, this.textBoxParamR3);
+
+            this.pictureBoxR.Invalidate();
+        }
+
+        // 左右側処理本体
+        private void buttonProcLR_Click(ComboBox cb, ref OpenCvSharp.CPlusPlus.Mat mat, ref Bitmap bm, TextBox tb1, TextBox tb2, TextBox tb3)
+        {
+            if (mat == null) return;
 
             OpenCvSharp.CPlusPlus.Mat matDst;
 
-            if (this.comboBoxProcR.Text.Equals("none (reset)"))
+            if (cb.Text.Equals("none (reset)"))
             {
-                this.matR = this.matOrg.Clone();
-                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(this.matR);
+                mat = this.matOrg.Clone();
+                bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
             }
-            else if (this.comboBoxProcR.Text.Equals("PyrSegmentation"))
+            else if (cb.Text.Equals("PyrSegmentation"))
             {
                 // 画像ピラミッドを用いた画像の領域分割
-                matDst = this.procPyrSegmentation(matR, int.Parse(this.textBoxParamR1.Text), double.Parse(this.textBoxParamR2.Text), double.Parse(this.textBoxParamR3.Text));
-                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
-                this.matR = matDst;
-                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matR);
+                matDst = this.procPyrSegmentation(mat, int.Parse(tb1.Text), double.Parse(tb2.Text), double.Parse(tb3.Text));
+                mat = matDst;
+                bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
             }
-            else if (this.comboBoxProcR.Text.Equals("PyrMeanShiftFiltering"))
+            else if (cb.Text.Equals("PyrMeanShiftFiltering"))
             {
                 // 平均値シフト法による画像のセグメント化
-                matDst = this.procPyrMeanShiftFiltering(matR, double.Parse(this.textBoxParamR1.Text), double.Parse(this.textBoxParamR2.Text), int.Parse(this.textBoxParamR3.Text));
-                this.matR = matDst;
-                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matR);
+                matDst = this.procPyrMeanShiftFiltering(mat, double.Parse(tb1.Text), double.Parse(tb2.Text), int.Parse(tb3.Text));
+                mat = matDst;
+                bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
             }
-            else if (this.comboBoxProcR.Text.Equals("Watershed"))
+            else if (cb.Text.Equals("Watershed"))
             {
                 // Watershedアルゴリズムによる画像の領域分割 
-                matDst = this.procWatershed(matR, int.Parse(this.textBoxParamR1.Text), int.Parse(this.textBoxParamR2.Text), int.Parse(this.textBoxParamR3.Text));
-                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+                matDst = this.procWatershed(mat, int.Parse(tb1.Text), int.Parse(tb2.Text), int.Parse(tb3.Text));
+                bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
             }
-            else if (this.comboBoxProcR.Text.Equals("GrayScale"))
+            else if (cb.Text.Equals("GrayScale"))
             {
                 // グレースケール化 
-                matDst = this.procGrayScale(matR);
-                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+                matDst = this.procGrayScale(mat);
+                mat = matDst;
+                bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
             }
-            else if (this.comboBoxProcR.Text.Equals("Canny"))
+            else if (cb.Text.Equals("Canny"))
             {
                 // エッジ抽出(Canny) 
-                matDst = this.procCanny(matR, double.Parse(this.textBoxParamR1.Text), double.Parse(this.textBoxParamR2.Text), int.Parse(this.textBoxParamR3.Text));
-                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+                matDst = this.procCanny(mat, double.Parse(tb1.Text), double.Parse(tb2.Text), int.Parse(tb3.Text));
+                mat = matDst;
+                bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
             }
-            else if (this.comboBoxProcR.Text.Equals("Binary"))
+            else if (cb.Text.Equals("Binary"))
             {
                 // 2値化(グレースケール化 + 2値化)
-                matDst = this.procBinary(matR);
-                this.outputImageR = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(matDst);
+                matDst = this.procBinary(mat);
+                mat = matDst;
+                bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
             }
-
-            this.pictureBoxR.Invalidate();
         }
 
         // 2値化(グレースケール化 + 2値化)

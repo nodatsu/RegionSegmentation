@@ -11,9 +11,16 @@ RegionSegmentation_04	Oct.30, 2014
 	グレースケール処理追加
 	エッジ抽出(Canny)処理追加
 	2値化処理
+
+	左右ウィンドの処理を本体にデリゲート
+
 ★今ここ
 	輪郭抽出
 	Hough変換を導入
+
+★バグ
+	各処理で、入ってくるデータのチャンネル数を調べていない
+		WaterShedは1ch画像ではだめ(GrayScale後)
 
 RegionSegmentation_03	Sep.04, 2014
 

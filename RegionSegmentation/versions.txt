@@ -5,22 +5,17 @@ TODO
 	処理内容/パラメータ比較
 	グレースケールも
 
-RegionSegmentation_04	Oct.30, 2014
+RegionSegmentation_04	Nov.01, 2014
 
 	デフォルトパラメータを最適値に
 	グレースケール処理追加
 	エッジ抽出(Canny)処理追加
 	2値化処理追加(グレースケール + 2値化)
 	確率的Hough変換追加(Canny + Hough)
+	輪郭抽出
 
 	左右ウィンドの処理を本体にデリゲート
 	各処理で最後に必ず画像を3chに戻す
-
-★今ここ
-	輪郭抽出
-
-	houghのcplusplusもあった
-
 
 RegionSegmentation_03	Sep.04, 2014
 

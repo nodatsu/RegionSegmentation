@@ -246,28 +246,18 @@ namespace RegionSegmentation
             OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
             OpenCvSharp.CPlusPlus.Mat matCanny = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
 
-            OpenCvSharp.CPlusPlus.Cv2.Canny(matSrc, matCanny, 100, 200, 3); 
-
-            // IplImageの準備(C API用)
-            OpenCvSharp.IplImage iplSrc = matCanny.ToIplImage();
-            OpenCvSharp.IplImage iplDst = matSrc.ToIplImage();
+            OpenCvSharp.CPlusPlus.Cv2.Canny(matSrc, matCanny, 100, 200, 3);
 
             // Hough変換
             double rho = 1.0;               // 距離分解能
             double theta = Math.PI / 180.0; // 角度分解能
-
-            OpenCvSharp.CvMemStorage strage = new OpenCvSharp.CvMemStorage();
-            OpenCvSharp.CvSeq lines = OpenCvSharp.Cv.HoughLines2(iplSrc, strage, OpenCvSharp.HoughLinesMethod.Probabilistic, rho, theta, votes, minLength, maxGap);
+            OpenCvSharp.CvLineSegmentPoint[] lines = OpenCvSharp.CPlusPlus.Cv2.HoughLinesP(matCanny, rho, theta, votes, minLength, maxGap);
 
             // 描画
-            for (int i = 0; i < lines.Total; i++)
+            foreach (OpenCvSharp.CvLineSegmentPoint it in lines)
             {
-                OpenCvSharp.CvLineSegmentPoint elem = lines.GetSeqElem<OpenCvSharp.CvLineSegmentPoint>(i).Value;
-                iplDst.Line(elem.P1, elem.P2, OpenCvSharp.CvColor.Red, 1, OpenCvSharp.LineType.AntiAlias, 0);
+                matDst.Line(it.P1, it.P2, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 1, OpenCvSharp.LineType.AntiAlias, 0);
             }
-
-            // IplImage -> Matに戻す
-            matDst = new OpenCvSharp.CPlusPlus.Mat(iplDst);
 
             return matDst;
         }

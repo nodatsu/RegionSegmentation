@@ -1,9 +1,14 @@
 ﻿RegionSegmentation
 
 TODO
-	パラメータの意味を調べる
-	処理内容/パラメータ比較
-	グレースケールも
+	輪郭から直線抽出
+	直線の平均帳を調べる(上から1/3ずつ)
+
+RegionSegmentation_05	Nov.04, 2014
+
+	元画像なしで輪郭のみ戻す処理を追加
+
+	Houghのデフォルトパラメータをサンプル用に
 
 RegionSegmentation_04	Nov.01, 2014
 

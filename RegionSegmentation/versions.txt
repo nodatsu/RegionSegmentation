@@ -1,14 +1,18 @@
 ﻿RegionSegmentation
 
 TODO
-	輪郭から直線抽出
-	直線の平均帳を調べる(上から1/3ずつ)
 
 RegionSegmentation_05	Nov.04, 2014
 
 	元画像なしで輪郭のみ戻す処理を追加
 
 	Houghのデフォルトパラメータをサンプル用に
+	Houghの直線をランダム色で表示
+
+	Hough変換時に平均長を計算、表示
+★今ここ
+	分割数を増やす
+
 
 RegionSegmentation_04	Nov.01, 2014
 

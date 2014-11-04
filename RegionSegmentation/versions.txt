@@ -10,9 +10,8 @@ RegionSegmentation_05	Nov.04, 2014
 	Houghの直線をランダム色で表示
 
 	Hough変換時に平均長を計算、表示
-★今ここ
 	分割数を増やす
-
+	統計情報を表示
 
 RegionSegmentation_04	Nov.01, 2014
 

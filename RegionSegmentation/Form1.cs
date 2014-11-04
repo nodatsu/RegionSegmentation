@@ -290,37 +290,51 @@ namespace RegionSegmentation
             }
 
             // 平均長の計算と表示
-            double sumU = 0.0;
-            int countU = 0;
-            double sumM = 0.0;
-            int countM = 0;
-            double sumD = 0.0;
-            int countD = 0;
+            int divNumR = 5;
+            int divNumC = 5;
+            int divSizeR = matDst.Rows / divNumR;
+            int divSizeC = matDst.Cols / divNumC;
+
+            double[,] sum = new double[divNumR, divNumC];
+            int[,] num = new int[divNumR, divNumC];
 
             foreach (OpenCvSharp.CvLineSegmentPoint it in lines)
             {
-                double mid = (it.P1.Y + it.P2.Y) / 2;
+                double midR = (it.P1.Y + it.P2.Y) / 2;
+                double midC = (it.P1.X + it.P2.X) / 2;
                 double dist = it.P1.DistanceTo(it.P2);
-                if (mid < matDst.Rows / 3) {
-                    sumU += dist;
-                    countU++;
-                }
-                if (mid < matDst.Rows * 2 / 3)
+
+                for (int r = 0; r < divNumR; r++)
                 {
-                    sumM += dist;
-                    countM++;
-                }
-                else
-                {
-                    sumD += dist;
-                    countD++;
+                    for (int c = 0; c < divNumC; c++)
+                    {
+                        if (midR >= divSizeR * r && midR < divSizeR * (r + 1) && midC >= divSizeC * c && midC < divSizeC * (c + 1))
+                        {
+                            sum[r, c] += dist;
+                            num[r, c]++;
+                        }
+                    }
                 }
             }
-            matDst.Line(new OpenCvSharp.CPlusPlus.Point(0, matDst.Rows / 3), new OpenCvSharp.CPlusPlus.Point(matDst.Cols, matDst.Rows / 3), new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 1, OpenCvSharp.LineType.AntiAlias, 0);
-            matDst.Line(new OpenCvSharp.CPlusPlus.Point(0, matDst.Rows *2 / 3), new OpenCvSharp.CPlusPlus.Point(matDst.Cols, matDst.Rows * 2 / 3), new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 1, OpenCvSharp.LineType.AntiAlias, 0);
-            OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, (sumU / countU).ToString(), new OpenCvSharp.CPlusPlus.Point(10, 30), OpenCvSharp.FontFace.HersheySimplex, 1.0, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
-            OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, (sumM / countM).ToString(), new OpenCvSharp.CPlusPlus.Point(10, 30 + matDst.Rows / 3), OpenCvSharp.FontFace.HersheySimplex, 1.0, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
-            OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, (sumD / countD).ToString(), new OpenCvSharp.CPlusPlus.Point(10, 30 + matDst.Rows * 2 / 3), OpenCvSharp.FontFace.HersheySimplex, 1.0, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
+
+            for (int r = 0; r < divNumR; r++)
+            {
+                matDst.Line(new OpenCvSharp.CPlusPlus.Point(0, divSizeR * r), new OpenCvSharp.CPlusPlus.Point(matDst.Cols, divSizeR * r), new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 1, OpenCvSharp.LineType.AntiAlias, 0);
+                for (int c = 0; c < divNumC; c++)
+                {
+                    matDst.Line(new OpenCvSharp.CPlusPlus.Point(divSizeC * c, 0), new OpenCvSharp.CPlusPlus.Point(divSizeC * c, matDst.Cols), new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 1, OpenCvSharp.LineType.AntiAlias, 0);
+
+                    if (num[r, c] > 0)
+                    {
+                        OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, (sum[r, c] / num[r, c]).ToString("F2") + "(" + num[r, c].ToString() + ")", new OpenCvSharp.CPlusPlus.Point(10 + divSizeC * c, 30 + divSizeR * r), OpenCvSharp.FontFace.HersheySimplex, 1.0, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
+                    }
+                }
+            }
+
+            
+            //OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, (sumU / countU).ToString(), new OpenCvSharp.CPlusPlus.Point(10, 30), OpenCvSharp.FontFace.HersheySimplex, 1.0, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
+            //OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, (sumM / countM).ToString(), new OpenCvSharp.CPlusPlus.Point(10, 30 + matDst.Rows / 3), OpenCvSharp.FontFace.HersheySimplex, 1.0, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
+            //OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, (sumD / countD).ToString(), new OpenCvSharp.CPlusPlus.Point(10, 30 + matDst.Rows * 2 / 3), OpenCvSharp.FontFace.HersheySimplex, 1.0, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
 
             return matDst;
         }

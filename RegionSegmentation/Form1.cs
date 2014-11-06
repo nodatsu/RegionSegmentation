@@ -112,7 +112,7 @@ namespace RegionSegmentation
                 lb3.Text = "Sobel演算サイズ";
                 tb3.Text = "3";
             }
-            else if (cb.Text.Equals("Hough"))
+            else if (cb.Text.Equals("Hough") || cb.Text.Equals("HoughStat"))
             {
                 // 確率的Hough変換
                 lb1.Text = "投票数";
@@ -203,6 +203,13 @@ namespace RegionSegmentation
                 mat = matDst;
                 bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
             }
+            else if (cb.Text.Equals("HoughStat"))
+            {
+                // 確率的Hough変換(Canny + Hough)
+                matDst = this.procHoughStat(mat, int.Parse(tb1.Text), double.Parse(tb2.Text), int.Parse(tb3.Text));
+                mat = matDst;
+                bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
+            }
             else if (cb.Text.Equals("Hough"))
             {
                 // 確率的Hough変換(Canny + Hough)
@@ -267,9 +274,8 @@ namespace RegionSegmentation
 
             return matDst;
         }
-        
-        // 確率的Hough変換(Canny + Hough)
-        private OpenCvSharp.CPlusPlus.Mat procHough(OpenCvSharp.CPlusPlus.Mat matSrc, int votes, double minLength, double maxGap)
+        // 確率的Hough変換(Canny + Hough) + 統計情報
+        private OpenCvSharp.CPlusPlus.Mat procHoughStat(OpenCvSharp.CPlusPlus.Mat matSrc, int votes, double minLength, double maxGap)
         {
             OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
             OpenCvSharp.CPlusPlus.Mat matCanny = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
@@ -290,8 +296,8 @@ namespace RegionSegmentation
             }
 
             // 平均長の計算と表示
-            int divNumR = 5;
-            int divNumC = 5;
+            int divNumR = 10;
+            int divNumC = 10;
             int divSizeR = matDst.Rows / divNumR;
             int divSizeC = matDst.Cols / divNumC;
 
@@ -326,15 +332,34 @@ namespace RegionSegmentation
 
                     if (num[r, c] > 0)
                     {
-                        OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, (sum[r, c] / num[r, c]).ToString("F2") + "(" + num[r, c].ToString() + ")", new OpenCvSharp.CPlusPlus.Point(10 + divSizeC * c, 30 + divSizeR * r), OpenCvSharp.FontFace.HersheySimplex, 1.0, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
+                        OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, (sum[r, c] / num[r, c]).ToString("F2") + " (" + num[r, c].ToString() + ")", new OpenCvSharp.CPlusPlus.Point(10 + divSizeC * c, 30 + divSizeR * r), OpenCvSharp.FontFace.HersheySimplex, 0.5, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
                     }
                 }
             }
 
-            
-            //OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, (sumU / countU).ToString(), new OpenCvSharp.CPlusPlus.Point(10, 30), OpenCvSharp.FontFace.HersheySimplex, 1.0, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
-            //OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, (sumM / countM).ToString(), new OpenCvSharp.CPlusPlus.Point(10, 30 + matDst.Rows / 3), OpenCvSharp.FontFace.HersheySimplex, 1.0, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
-            //OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, (sumD / countD).ToString(), new OpenCvSharp.CPlusPlus.Point(10, 30 + matDst.Rows * 2 / 3), OpenCvSharp.FontFace.HersheySimplex, 1.0, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
+            return matDst;
+        }
+       
+        // 確率的Hough変換(Canny + Hough)
+        private OpenCvSharp.CPlusPlus.Mat procHough(OpenCvSharp.CPlusPlus.Mat matSrc, int votes, double minLength, double maxGap)
+        {
+            OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
+            OpenCvSharp.CPlusPlus.Mat matCanny = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
+
+            OpenCvSharp.CPlusPlus.Cv2.Canny(matSrc, matCanny, 100, 200, 3);
+
+            // Hough変換
+            double rho = 1.0;               // 距離分解能
+            double theta = Math.PI / 180.0; // 角度分解能
+            OpenCvSharp.CvLineSegmentPoint[] lines = OpenCvSharp.CPlusPlus.Cv2.HoughLinesP(matCanny, rho, theta, votes, minLength, maxGap);
+
+            // 描画
+            Random rnd = new Random();
+            foreach (OpenCvSharp.CvLineSegmentPoint it in lines)
+            {
+                //matDst.Line(it.P1, it.P2, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 1, OpenCvSharp.LineType.AntiAlias, 0);
+                matDst.Line(it.P1, it.P2, new OpenCvSharp.CPlusPlus.Scalar(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255)), 1, OpenCvSharp.LineType.AntiAlias, 0);
+            }
 
             return matDst;
         }

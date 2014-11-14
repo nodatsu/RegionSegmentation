@@ -237,6 +237,7 @@
             "Binary",
             "Hough",
             "HoughStat",
+            "HoughStat2",
             "Contour",
             "ContourOnly"});
             this.comboBoxProcR.Location = new System.Drawing.Point(4, 4);
@@ -411,6 +412,7 @@
             "Binary",
             "Hough",
             "HoughStat",
+            "HoughStat2",
             "Contour",
             "ContourOnly"});
             this.comboBoxProcL.Location = new System.Drawing.Point(4, 4);

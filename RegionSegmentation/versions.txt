@@ -2,17 +2,41 @@
 
 TODO
 	分析
-		直線抽出のパラメータを調整
-		本数に着目
-		輪郭のサイズ
-		空隙の個数
-
 		CGサンプルの作成
 		3次元グラフ化
 		片っ端から統計情報を出してみる
 			線の長さ、方向、交差
-			空隙の状況
+			本数
+			空隙の状況、サイズ
 			密度
+
+		最適化処理手順
+			PyrMeanShiftFiltering
+			ContourOnly
+			Hough/HoughStat
+
+		ノイズを排除する方法
+		直線抽出を上手に
+		直線以外の特徴量
+		輪郭か、エッジか
+
+RegionSegmentation_07	Nov.14, 2014
+
+	HoughStatの統計データとして最大長も出力
+		<- Hough変換のアルゴリズムの問題として、一度使った点を排除するようになっていない
+	Contourの処理を塗りつぶしに変更(輪郭線からエッジをとると二重線になってしまう)
+
+	★分析中
+		patternMakerの出力画像
+			Houghの分解能、ギャップ、最大長の調整
+			パラメータ比較用に処理をコピー
+
+	★TODO
+		ノイズ除去処理
+
+RegionSegmentation_06	Nov.06, 2014
+
+	Hough変換を統計情報あり/なしに分ける
 
 RegionSegmentation_05	Nov.04, 2014
 
@@ -22,8 +46,8 @@ RegionSegmentation_05	Nov.04, 2014
 	Houghの直線をランダム色で表示
 
 	Hough変換時に平均長を計算、表示
-	分割数を増やす
 	統計情報を表示
+	統計処理の分割数を可変に
 
 RegionSegmentation_04	Nov.01, 2014
 

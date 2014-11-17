@@ -112,7 +112,7 @@ namespace RegionSegmentation
                 lb3.Text = "Sobel演算サイズ";
                 tb3.Text = "3";
             }
-            else if (cb.Text.Equals("Hough") || cb.Text.Equals("HoughStat") || cb.Text.Equals("HoughStat2"))
+            else if (cb.Text.Equals("Hough") || cb.Text.Equals("HoughStat"))
             {
                 // 確率的Hough変換
                 lb1.Text = "投票数";
@@ -217,13 +217,6 @@ namespace RegionSegmentation
                 mat = matDst;
                 bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
             }
-            else if (cb.Text.Equals("HoughStat2"))
-            {
-                // 確率的Hough変換(Canny + Hough) + 統計情報 ★比較用
-                matDst = this.procHoughStat2(mat, int.Parse(tb1.Text), double.Parse(tb2.Text), int.Parse(tb3.Text));
-                mat = matDst;
-                bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
-            }
             else if (cb.Text.Equals("Contour"))
             {
                 // 輪郭抽出(グレースケール + 2値化 + 輪郭抽出)
@@ -231,24 +224,10 @@ namespace RegionSegmentation
                 mat = matDst;
                 bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
             }
-            else if (cb.Text.Equals("ContourOnly"))
-            {
-                // 輪郭抽出(グレースケール + 2値化 + 輪郭抽出)(輪郭のみの画像を戻す)
-                matDst = this.procContourOnly(mat);
-                mat = matDst;
-                bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
-            }
-            else if (cb.Text.Equals("ContourOnly2"))
-            {
-                // 輪郭抽出(グレースケール + 2値化 + 輪郭抽出)(輪郭のみの画像を戻す) ★比較用
-                matDst = this.procContourOnly2(mat);
-                mat = matDst;
-                bm = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
-            }
         }
 
         // 輪郭抽出(グレースケール + 2値化 + 輪郭抽出)(輪郭のみの画像を戻す)
-        private OpenCvSharp.CPlusPlus.Mat procContourOnly(OpenCvSharp.CPlusPlus.Mat matSrc)
+        private OpenCvSharp.CPlusPlus.Mat procContour(OpenCvSharp.CPlusPlus.Mat matSrc)
         {
             OpenCvSharp.CPlusPlus.Mat matDst = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC3, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 0));
             OpenCvSharp.CPlusPlus.Mat matGray = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
@@ -266,54 +245,8 @@ namespace RegionSegmentation
             //OpenCvSharp.CPlusPlus.Cv2.FindContours(matBinary, out contours, hierarchy, OpenCvSharp.ContourRetrieval.Tree, OpenCvSharp.ContourChain.ApproxTC89L1);
 
             // 描画
-            OpenCvSharp.CPlusPlus.Cv2.DrawContours(matDst, contours, -1, new OpenCvSharp.CPlusPlus.Scalar(255, 255, 255), OpenCvSharp.Cv.FILLED, OpenCvSharp.LineType.AntiAlias, hierarchy);
-            //OpenCvSharp.CPlusPlus.Cv2.DrawContours(matDst, contours, -1, new OpenCvSharp.CPlusPlus.Scalar(255, 255, 255), 1, OpenCvSharp.LineType.AntiAlias, hierarchy);
-
-            return matDst;
-        }
-
-        // 輪郭抽出(グレースケール + 2値化 + 輪郭抽出)(輪郭のみの画像を戻す) ★比較用
-        private OpenCvSharp.CPlusPlus.Mat procContourOnly2(OpenCvSharp.CPlusPlus.Mat matSrc)
-        {
-            OpenCvSharp.CPlusPlus.Mat matDst = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC3, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 0));
-            OpenCvSharp.CPlusPlus.Mat matGray = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
-            OpenCvSharp.CPlusPlus.Mat matBinary = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
-
-            OpenCvSharp.CPlusPlus.Cv2.CvtColor(matSrc, matGray, OpenCvSharp.ColorConversion.BgraToGray, 1);
-            OpenCvSharp.CPlusPlus.Cv2.Threshold(matGray, matBinary, 0, 255, OpenCvSharp.ThresholdType.Binary | OpenCvSharp.ThresholdType.Otsu);
-
-            // 輪郭抽出
-            OpenCvSharp.CPlusPlus.Mat[] contours;
-            OpenCvSharp.CPlusPlus.Mat hierarchy = new OpenCvSharp.CPlusPlus.Mat();
-            //OpenCvSharp.CPlusPlus.Cv2.FindContours(matBinary, out contours, hierarchy, OpenCvSharp.ContourRetrieval.Tree, OpenCvSharp.ContourChain.ApproxNone);
-            //OpenCvSharp.CPlusPlus.Cv2.FindContours(matBinary, out contours, hierarchy, OpenCvSharp.ContourRetrieval.Tree, OpenCvSharp.ContourChain.ApproxSimple);
-            OpenCvSharp.CPlusPlus.Cv2.FindContours(matBinary, out contours, hierarchy, OpenCvSharp.ContourRetrieval.Tree, OpenCvSharp.ContourChain.ApproxTC89KCOS);
-            //OpenCvSharp.CPlusPlus.Cv2.FindContours(matBinary, out contours, hierarchy, OpenCvSharp.ContourRetrieval.Tree, OpenCvSharp.ContourChain.ApproxTC89L1);
-
-            // 描画
-            OpenCvSharp.CPlusPlus.Cv2.DrawContours(matDst, contours, -1, new OpenCvSharp.CPlusPlus.Scalar(255, 255, 255), OpenCvSharp.Cv.FILLED, OpenCvSharp.LineType.AntiAlias, hierarchy);
-            //OpenCvSharp.CPlusPlus.Cv2.DrawContours(matDst, contours, -1, new OpenCvSharp.CPlusPlus.Scalar(255, 255, 255), 1, OpenCvSharp.LineType.AntiAlias, hierarchy);
-
-            return matDst;
-        }
-
-        // 輪郭抽出(グレースケール + 2値化 + 輪郭抽出)
-        private OpenCvSharp.CPlusPlus.Mat procContour(OpenCvSharp.CPlusPlus.Mat matSrc)
-        {
-            OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
-            OpenCvSharp.CPlusPlus.Mat matGray = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
-            OpenCvSharp.CPlusPlus.Mat matBinary = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
-
-            OpenCvSharp.CPlusPlus.Cv2.CvtColor(matSrc, matGray, OpenCvSharp.ColorConversion.BgraToGray, 1);
-            OpenCvSharp.CPlusPlus.Cv2.Threshold(matGray, matBinary, 0, 255, OpenCvSharp.ThresholdType.Binary | OpenCvSharp.ThresholdType.Otsu);
-
-            // 輪郭抽出
-            OpenCvSharp.CPlusPlus.Mat[] contours;
-            OpenCvSharp.CPlusPlus.Mat hierarchy = new OpenCvSharp.CPlusPlus.Mat();
-            OpenCvSharp.CPlusPlus.Cv2.FindContours(matBinary, out contours, hierarchy, OpenCvSharp.ContourRetrieval.Tree, OpenCvSharp.ContourChain.ApproxSimple);
-
-            // 描画
-            OpenCvSharp.CPlusPlus.Cv2.DrawContours(matDst, contours, -1, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 1, OpenCvSharp.LineType.AntiAlias, hierarchy);
+            //OpenCvSharp.CPlusPlus.Cv2.DrawContours(matDst, contours, -1, new OpenCvSharp.CPlusPlus.Scalar(255, 255, 255), OpenCvSharp.Cv.FILLED, OpenCvSharp.LineType.AntiAlias, hierarchy);
+            OpenCvSharp.CPlusPlus.Cv2.DrawContours(matDst, contours, -1, new OpenCvSharp.CPlusPlus.Scalar(255, 255, 255), 1, OpenCvSharp.LineType.AntiAlias, hierarchy);
 
             return matDst;
         }
@@ -322,87 +255,16 @@ namespace RegionSegmentation
         private OpenCvSharp.CPlusPlus.Mat procHoughStat(OpenCvSharp.CPlusPlus.Mat matSrc, int votes, double minLength, double maxGap)
         {
             OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
-            OpenCvSharp.CPlusPlus.Mat matCanny = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
+            OpenCvSharp.CPlusPlus.Mat matGray = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
+            OpenCvSharp.CPlusPlus.Mat matBinary = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
 
-            OpenCvSharp.CPlusPlus.Cv2.Canny(matSrc, matCanny, 100, 200, 3);
-
-            // Hough変換
-            double rho = 1.0;               // 距離分解能
-            double theta = Math.PI / 180.0; // 角度分解能
-            OpenCvSharp.CvLineSegmentPoint[] lines = OpenCvSharp.CPlusPlus.Cv2.HoughLinesP(matCanny, rho, theta, votes, minLength, maxGap);
-
-            // 描画
-            Random rnd = new Random();
-            foreach (OpenCvSharp.CvLineSegmentPoint it in lines)
-            {
-                //matDst.Line(it.P1, it.P2, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 1, OpenCvSharp.LineType.AntiAlias, 0);
-                matDst.Line(it.P1, it.P2, new OpenCvSharp.CPlusPlus.Scalar(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255)), 1, OpenCvSharp.LineType.AntiAlias, 0);
-            }
-
-            // 本数、平均長、最大長の計算と表示
-            int divNumR = 10;
-            int divNumC = 10;
-            int divSizeR = matDst.Rows / divNumR;
-            int divSizeC = matDst.Cols / divNumC;
-
-            double[,] sum = new double[divNumR, divNumC];
-            double[,] max = new double[divNumR, divNumC];
-            int[,] num = new int[divNumR, divNumC];
-
-            foreach (OpenCvSharp.CvLineSegmentPoint it in lines)
-            {
-                double midR = (it.P1.Y + it.P2.Y) / 2;
-                double midC = (it.P1.X + it.P2.X) / 2;
-                double dist = it.P1.DistanceTo(it.P2);
-
-                for (int r = 0; r < divNumR; r++)
-                {
-                    for (int c = 0; c < divNumC; c++)
-                    {
-                        if (midR >= divSizeR * r && midR < divSizeR * (r + 1) && midC >= divSizeC * c && midC < divSizeC * (c + 1))
-                        {
-                            sum[r, c] += dist;
-                            num[r, c]++;
-                            if (max[r, c] < dist)
-                            {
-                                max[r, c] = dist;
-                            }
-                        }
-                    }
-                }
-            }
-
-            for (int r = 0; r < divNumR; r++)
-            {
-                matDst.Line(new OpenCvSharp.CPlusPlus.Point(0, divSizeR * r), new OpenCvSharp.CPlusPlus.Point(matDst.Cols, divSizeR * r), new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 1, OpenCvSharp.LineType.AntiAlias, 0);
-                for (int c = 0; c < divNumC; c++)
-                {
-                    matDst.Line(new OpenCvSharp.CPlusPlus.Point(divSizeC * c, 0), new OpenCvSharp.CPlusPlus.Point(divSizeC * c, matDst.Cols), new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 1, OpenCvSharp.LineType.AntiAlias, 0);
-
-                    if (num[r, c] > 0)
-                    {
-                        OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, num[r, c].ToString(), new OpenCvSharp.CPlusPlus.Point(10 + divSizeC * c, 20 + divSizeR * r), OpenCvSharp.FontFace.HersheySimplex, 0.5, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
-                        OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, (sum[r, c] / num[r, c]).ToString("F2"), new OpenCvSharp.CPlusPlus.Point(10 + divSizeC * c, 40 + divSizeR * r), OpenCvSharp.FontFace.HersheySimplex, 0.5, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
-                        OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, max[r, c].ToString("F2"), new OpenCvSharp.CPlusPlus.Point(10 + divSizeC * c, 60 + divSizeR * r), OpenCvSharp.FontFace.HersheySimplex, 0.5, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
-                    }
-                }
-            }
-
-            return matDst;
-        }
-
-        // 確率的Hough変換(Canny + Hough) + 統計情報 ★比較用
-        private OpenCvSharp.CPlusPlus.Mat procHoughStat2(OpenCvSharp.CPlusPlus.Mat matSrc, int votes, double minLength, double maxGap)
-        {
-            OpenCvSharp.CPlusPlus.Mat matDst = matSrc.Clone();
-            OpenCvSharp.CPlusPlus.Mat matCanny = new OpenCvSharp.CPlusPlus.Mat(matSrc.Rows, matSrc.Cols, OpenCvSharp.CPlusPlus.MatType.CV_8UC1);
-
-            OpenCvSharp.CPlusPlus.Cv2.Canny(matSrc, matCanny, 100, 200, 3);
+            OpenCvSharp.CPlusPlus.Cv2.CvtColor(matSrc, matGray, OpenCvSharp.ColorConversion.BgraToGray, 1);
+            OpenCvSharp.CPlusPlus.Cv2.Threshold(matGray, matBinary, 0, 255, OpenCvSharp.ThresholdType.Binary | OpenCvSharp.ThresholdType.Otsu);
 
             // Hough変換
             double rho = 1.0;               // 距離分解能
             double theta = Math.PI / 180.0; // 角度分解能
-            OpenCvSharp.CvLineSegmentPoint[] lines = OpenCvSharp.CPlusPlus.Cv2.HoughLinesP(matCanny, rho, theta, votes, minLength, maxGap);
+            OpenCvSharp.CvLineSegmentPoint[] lines = OpenCvSharp.CPlusPlus.Cv2.HoughLinesP(matBinary, rho, theta, votes, minLength, maxGap);
 
             // 描画
             Random rnd = new Random();

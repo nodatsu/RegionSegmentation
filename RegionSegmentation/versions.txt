@@ -2,43 +2,36 @@
 
 TODO
 	分析
-		CGサンプルの作成
-		3次元グラフ化
-		片っ端から統計情報を出してみる
-			線の長さ、方向、交差
-			本数
-			空隙の状況、サイズ
-			密度
-
-		最適化処理手順
-			PyrMeanShiftFiltering
-			ContourOnly
-			Hough/HoughStat
-
 		サンプルの作り方
 			建物が重ならない程度に
 
-RegionSegmentation_07	Nov.14, 2014
+RegionSegmentation_07	Nov.17, 2014
 
 	HoughStatの統計データとして最大長も出力
 		<- Hough変換のアルゴリズムの問題として、一度使った点を排除するようになっていない
-	Contourの処理を塗りつぶしに変更(輪郭線からエッジをとると二重線になってしまう)
+	Hough変換をCannyと分離
+		<- 輪郭抽出/エッジ抽出のどちらにも対応
+		-> 元画像に重ねたい場合はメニューオプションで対応
+	輪郭抽出の処理を一本化
+		-> 元画像に重ねたい場合はメニューオプションで対応
+	輪郭抽出のアルゴリズムを調整
+			滑らか <- ApproxTC89KCOS, ApproxTC89L1, ApproxSimple, ApproxNone -> ガタガタ
+			Houghの結果としてはApproxNoneの方が若干良い?
 
 	★分析中
+		輪郭抽出 < エッジ抽出 ?
+
 		patternMakerの出力画像
 			Houghの分解能、ギャップ、最大長の調整
 			パラメータ比較用に処理をコピー
-
-	★TODO
-
-		輪郭抽出のアルゴリズムを比較
-			比較用に処理をコピー
-			滑らか <- ApproxTC89KCOS, ApproxTC89L1, ApproxSimple, ApproxNone -> ガタガタ
+			-> あまりパラメータで変化しない -> なぜ?
 
 		★今ここ
-		輪郭抽出からエッジ抽出を経ずにHough変換
-
 		ノイズ除去処理
+		密度情報
+		輪郭の面積
+		交差情報
+		三次元グラフ化
 
 RegionSegmentation_06	Nov.06, 2014
 

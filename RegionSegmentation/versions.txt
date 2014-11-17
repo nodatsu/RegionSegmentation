@@ -15,10 +15,8 @@ TODO
 			ContourOnly
 			Hough/HoughStat
 
-		ノイズを排除する方法
-		直線抽出を上手に
-		直線以外の特徴量
-		輪郭か、エッジか
+		サンプルの作り方
+			建物が重ならない程度に
 
 RegionSegmentation_07	Nov.14, 2014
 
@@ -32,6 +30,14 @@ RegionSegmentation_07	Nov.14, 2014
 			パラメータ比較用に処理をコピー
 
 	★TODO
+
+		輪郭抽出のアルゴリズムを比較
+			比較用に処理をコピー
+			滑らか <- ApproxTC89KCOS, ApproxTC89L1, ApproxSimple, ApproxNone -> ガタガタ
+
+		★今ここ
+		輪郭抽出からエッジ抽出を経ずにHough変換
+
 		ノイズ除去処理
 
 RegionSegmentation_06	Nov.06, 2014

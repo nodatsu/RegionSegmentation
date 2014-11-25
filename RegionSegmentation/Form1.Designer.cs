@@ -93,7 +93,7 @@
             // 読み込みToolStripMenuItem
             // 
             this.読み込みToolStripMenuItem.Name = "読み込みToolStripMenuItem";
-            this.読み込みToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.読み込みToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.読み込みToolStripMenuItem.Text = "読み込み";
             this.読み込みToolStripMenuItem.Click += new System.EventHandler(this.読み込みToolStripMenuItem_Click);
             // 

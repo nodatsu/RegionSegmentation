@@ -25,6 +25,9 @@ namespace RegionSegmentation
         bool isMouseDrag;
         Point mousePre;
 
+        // ファイル名(書き出し用)
+        String dataFileName;
+
         public Form1()
         {
             InitializeComponent();
@@ -36,6 +39,8 @@ namespace RegionSegmentation
             OpenFileDialog dialog = new OpenFileDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
+                this.dataFileName = System.IO.Path.GetFileNameWithoutExtension(dialog.FileName);
+
                 this.matOrg = new OpenCvSharp.CPlusPlus.Mat(dialog.FileName);
                 this.matL = this.matOrg.Clone();
                 this.matR = this.matOrg.Clone();
@@ -321,6 +326,59 @@ namespace RegionSegmentation
                         OpenCvSharp.CPlusPlus.Cv2.PutText(matDst, max[r, c].ToString("F2"), new OpenCvSharp.CPlusPlus.Point(10 + divSizeC * c, 60 + divSizeR * r), OpenCvSharp.FontFace.HersheySimplex, 0.5, new OpenCvSharp.CPlusPlus.Scalar(0, 0, 255), 2, OpenCvSharp.LineType.AntiAlias);
                     }
                 }
+            }
+
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.FileName = this.dataFileName + ".txt";
+            dialog.Filter = "CSVファイル|*.csv|すべてのファイル|*.*";
+            dialog.FilterIndex = 2;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                System.IO.StreamWriter writer = new System.IO.StreamWriter(dialog.FileName, false, System.Text.Encoding.GetEncoding("Shift_JIS"));
+
+                writer.Write("num\n");
+                for (int r = 0; r < divNumR; r++)
+                {
+                    for (int c = 0; c < divNumC; c++)
+                    {
+                        if (num[r, c] > 0)
+                        {
+                            writer.Write(num[r, c].ToString());
+                            writer.Write(", ");
+                        }
+                    }
+                    writer.Write("\n");
+                }
+
+                writer.Write("avg\n");
+                for (int r = 0; r < divNumR; r++)
+                {
+                    for (int c = 0; c < divNumC; c++)
+                    {
+                        if (num[r, c] > 0)
+                        {
+                            writer.Write((sum[r, c] / num[r, c]).ToString("F2"));
+                            writer.Write(", ");
+                        }
+                    }
+                    writer.Write("\n");
+                }
+
+                writer.Write("max\n");
+                for (int r = 0; r < divNumR; r++)
+                {
+                    for (int c = 0; c < divNumC; c++)
+                    {
+                        if (num[r, c] > 0)
+                        {
+                            writer.Write(max[r, c].ToString("F2"));
+                            writer.Write(", ");
+                        }
+                    }
+                    writer.Write("\n");
+                }
+
+                writer.Close();
             }
 
             return matDst;

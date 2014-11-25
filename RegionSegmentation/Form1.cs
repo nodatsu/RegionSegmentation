@@ -25,6 +25,13 @@ namespace RegionSegmentation
         bool isMouseDrag;
         Point mousePre;
 
+        // 統計情報
+        int divNumR = 10;
+        int divNumC = 10;
+        double[,] sum = new double[10, 10];
+        double[,] max = new double[10, 10];
+        int[,] num = new int[10, 10];
+
         public Form1()
         {
             InitializeComponent();
@@ -53,6 +60,63 @@ namespace RegionSegmentation
 
                 this.pictureBoxL.Invalidate();
                 this.pictureBoxR.Invalidate();
+            }
+        }
+
+        private void 書き出しToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 統計データ書き出し
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.FileName = "statistics.txt";
+            dialog.Filter = "CSVファイル|*.csv|すべてのファイル|*.*";
+            dialog.FilterIndex = 2;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                System.IO.StreamWriter writer = new System.IO.StreamWriter(dialog.FileName, false, System.Text.Encoding.GetEncoding("Shift_JIS"));
+
+                writer.Write("num\n");
+                for (int r = 0; r < divNumR; r++)
+                {
+                    for (int c = 0; c < divNumC; c++)
+                    {
+                        if (num[r, c] > 0)
+                        {
+                            writer.Write(num[r, c].ToString());
+                            writer.Write(", ");
+                        }
+                    }
+                    writer.Write("\n");
+                }
+
+                writer.Write("avg\n");
+                for (int r = 0; r < divNumR; r++)
+                {
+                    for (int c = 0; c < divNumC; c++)
+                    {
+                        if (num[r, c] > 0)
+                        {
+                            writer.Write((sum[r, c] / num[r, c]).ToString("F2"));
+                            writer.Write(", ");
+                        }
+                    }
+                    writer.Write("\n");
+                }
+
+                writer.Write("max\n");
+                for (int r = 0; r < divNumR; r++)
+                {
+                    for (int c = 0; c < divNumC; c++)
+                    {
+                        if (num[r, c] > 0)
+                        {
+                            writer.Write(max[r, c].ToString("F2"));
+                            writer.Write(", ");
+                        }
+                    }
+                    writer.Write("\n");
+                } 
+
+                writer.Close();
             }
         }
 
@@ -275,14 +339,14 @@ namespace RegionSegmentation
             }
 
             // 本数、平均長、最大長の計算と表示
-            int divNumR = 10;
-            int divNumC = 10;
+            //int divNumR = 10;
+            //int divNumC = 10;
             int divSizeR = matDst.Rows / divNumR;
             int divSizeC = matDst.Cols / divNumC;
 
-            double[,] sum = new double[divNumR, divNumC];
-            double[,] max = new double[divNumR, divNumC];
-            int[,] num = new int[divNumR, divNumC];
+            //double[,] sum = new double[divNumR, divNumC];
+            //double[,] max = new double[divNumR, divNumC];
+            //int[,] num = new int[divNumR, divNumC];
 
             foreach (OpenCvSharp.CvLineSegmentPoint it in lines)
             {

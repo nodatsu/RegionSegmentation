@@ -58,6 +58,7 @@
             this.tableLayoutPanelParamL1 = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxParamL1 = new System.Windows.Forms.TextBox();
             this.labelParamL1 = new System.Windows.Forms.Label();
+            this.書き出しToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxL)).BeginInit();
             this.tableLayoutPanelBase.SuspendLayout();
@@ -85,7 +86,8 @@
             // ファイルToolStripMenuItem
             // 
             this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.読み込みToolStripMenuItem});
+            this.読み込みToolStripMenuItem,
+            this.書き出しToolStripMenuItem});
             this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
             this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.ファイルToolStripMenuItem.Text = "ファイル";
@@ -93,7 +95,7 @@
             // 読み込みToolStripMenuItem
             // 
             this.読み込みToolStripMenuItem.Name = "読み込みToolStripMenuItem";
-            this.読み込みToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.読み込みToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.読み込みToolStripMenuItem.Text = "読み込み";
             this.読み込みToolStripMenuItem.Click += new System.EventHandler(this.読み込みToolStripMenuItem_Click);
             // 
@@ -462,6 +464,13 @@
             this.labelParamL1.Text = "param1";
             this.labelParamL1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // 書き出しToolStripMenuItem
+            // 
+            this.書き出しToolStripMenuItem.Name = "書き出しToolStripMenuItem";
+            this.書き出しToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.書き出しToolStripMenuItem.Text = "書き出し";
+            this.書き出しToolStripMenuItem.Click += new System.EventHandler(this.書き出しToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -530,6 +539,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelParamL3;
         private System.Windows.Forms.TextBox textBoxParamL3;
         private System.Windows.Forms.Label labelParamL3;
+        private System.Windows.Forms.ToolStripMenuItem 書き出しToolStripMenuItem;
     }
 }
 
